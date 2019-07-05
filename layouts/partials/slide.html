@@ -1,0 +1,11 @@
+<section class="container page">
+  <article>
+    <header>
+      <h1>{{ .Title }}</h1>
+    </header>
+    <div>
+        <i>{{ .Date.Format (.Site.Params.dateFormat | default "January 2, 2006" ) }} @{{.Params.location}}</i>
+    </div>
+    {{ .Content }}
+  </article>
+</section>
