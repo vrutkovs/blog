@@ -1,4 +1,4 @@
-baseURL = "https://vrutkovs.eu/"
+baseurl = "https://vrutkovs.eu/"
 title = "Vadim Rutkovsky"
 theme = "hugo-coder"
 languagecode = "en"
