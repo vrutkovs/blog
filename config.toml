@@ -16,7 +16,7 @@ pygmentscodefencesguesssyntax = true
   info = "Senior rubber duck collector"
   description = "Vadim Rutkovsky's personal site"
   keywords = "blog,developer,personal"
-  avatarurl = "img/avatar.jpg"
+  avatarurl = "images/avatar.jpg"
   footercontent = "Enter a text here."
 
   favicon_32 = "/img/favicon-32x32.png"
