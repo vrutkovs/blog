@@ -17,7 +17,6 @@ pygmentscodefencesguesssyntax = true
   description = "Vadim Rutkovsky's personal site"
   keywords = "blog,developer,personal"
   avatarurl = "images/avatar.jpg"
-  footercontent = "Enter a text here."
 
   favicon_32 = "/img/favicon-32x32.png"
   favicon_16 = "/img/favicon-16x16.png"
@@ -51,7 +50,3 @@ pygmentscodefencesguesssyntax = true
     name = "Slides"
     weight = 1
     url  = "/slides/"
-[[menu.main]]
-    name = "About"
-    weight = 2
-    url = "/about/"
