@@ -1,7 +1,7 @@
 ---
 title: "Buildah + Source2Image"
 date: 2019-09-05T10:35:00+02:00
-draft: true
+draft: false
 ---
 
 # Remember - no Dockerfiles
