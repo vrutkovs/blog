@@ -55,3 +55,8 @@ pygmentscodefencesguesssyntax = true
     name = "Slides"
     weight = 1
     url  = "/slides/"
+
+[[menu.main]]
+    name = "Posts"
+    weight = 2
+    url  = "/posts/"
