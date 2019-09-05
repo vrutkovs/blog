@@ -80,6 +80,7 @@ s2i build https://github.com/sclorg/django-ex centos/python-36-centos7 hello-pyt
 Если требуется собирать приложение с другой версией питона, то при сборке нужно лишь сменить сборочный образ - к примеру `docker.io/centos/python-27-centos7`
 
 Вся "магия" сборки хранится в сборочном образе. [Краткое описание](https://github.com/openshift/source-to-image#anatomy-of-a-builder-image) процесса сборки:
+
 * `s2i` ищет каталог `s2i/bin/` в сборочном образе
 * при сборке образа запускается скрипт из `s2i/bin/assemble`
 * при старте собранного образа запускается `s2i/bin/run`
