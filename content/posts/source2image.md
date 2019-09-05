@@ -49,6 +49,8 @@ buildah commit $newcontainer my-app:latest
 * Во всем контейнере создастся три слоя - `FROM scratch`, `COPY <необходимые бинарные файлы из coreutils + bash + my-app>` и `CMD ['/usr/bin/app']`
 * Кэшированием артефактов для сборки управляет сборочный хост - можно свободно использовать [distcc](https://github.com/distcc/distcc), сетевые диски для кэша и т.д.
 
+Эти образы совместимы со спецификацией OCI, а значит их можно запускать в docker, docker-compose или Kubernetes так же, как и собранные в docker.
+
 ### buildah bud
 
 Кроме того, `buildah` поддерживает чтение инструкций из Dockerfile: `buildah bud -f Dockerfile .`. Инструкции из Dockerfile преобразуются в инструкции по созданию новых контейнеров и копированию файлов аналогично предыдущему примеру.
