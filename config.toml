@@ -28,6 +28,8 @@ pygmentscodefencesguesssyntax = true
 
   math = false
 
+  custom_css = ["css/extra-style.css"]
+
 # Social links
 [[params.social]]
     name = "Github"
