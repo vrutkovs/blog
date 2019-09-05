@@ -1,10 +1,8 @@
 ---
-title: "Buildah + Source2Image"
+title: "Remember - no Dockerfiles"
 date: 2019-09-05T10:35:00+02:00
 draft: false
 ---
-
-# Remember - no Dockerfiles
 
 Многие разработчики разочарованы в магии современного контейнерного подхода.
 
