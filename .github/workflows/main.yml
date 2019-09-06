@@ -12,8 +12,15 @@ jobs:
     - uses: vrutkovs/action-s2i@master
       with:
         path: .
-        base: quay.io/vrutkovs/sti-hugo
-        image: quay.io/vrutkovs/blog:latest
+        base: quay.io/vrutkovs/sti-hugo:v0.55-public
+        image: blog:src
+    - uses: vrutkovs/action-bin-container@master
+      with:
+        source_image: blog:src
+        source_path: /opt/app-root/src/public
+        binary_base: twalter/openshift-nginx:stable
+        binary_path: /usr/share/nginx/html
+        binary_image: quay.io/vrutkovs/blog:latest
     - name: login to quay
       uses: actions/docker/login@master
       env:
