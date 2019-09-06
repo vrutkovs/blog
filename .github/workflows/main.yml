@@ -1,0 +1,28 @@
+name: CI
+
+on: [push]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v1
+    - uses: vrutkovs/action-s2i@master
+      with:
+        path: .
+        base: quay.io/vrutkovs/sti-hugo
+        image: quay.io/vrutkovs/blog:latest
+    - name: login to quay
+      uses: actions/docker/login@master
+      env:
+        DOCKER_REGISTRY_URL: quay.io
+        DOCKER_USERNAME: vrutkovs
+        DOCKER_PASSWORD: ${{ secrets.QUAY_PASSWORD }}
+      if: github.event_name == 'push'
+    - name: push the image
+      uses: actions/docker/cli@master
+      with:
+        args: "push quay.io/vrutkovs/blog:latest"
+      if: github.event_name == 'push'
