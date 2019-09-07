@@ -20,7 +20,7 @@ jobs:
       with:
         source_image: blog:src
         source_path: /opt/app-root/src/public
-        binary_base: twalter/openshift-nginx:stable
+        binary_base: quay.io/vrutkovs/openshift-nginx:latest
         binary_path: /usr/share/nginx/html
         binary_image: quay.io/vrutkovs/blog:latest
     - name: login to quay
