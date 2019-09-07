@@ -9,6 +9,8 @@ jobs:
 
     steps:
     - uses: actions/checkout@v1
+    - name: checkout theme submodule
+      run: git submodule sync --recursive && git submodule update --init --recursive
     - uses: vrutkovs/action-s2i@master
       with:
         path: .
