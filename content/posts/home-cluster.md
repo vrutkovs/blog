@@ -110,9 +110,34 @@ openshift_disable_check: memory_availability
 После установки консоль будет доступна по адресу https://console.vrutkovs.eu
 
 # Always Own Your Platform
-http://www.alwaysownyourplatform.com/
-[awesome-selhosted](https://github.com/Kickball/awesome-selfhosted)
 
+Что с этим кластером теперь делать? Я следую принципу [Always Own Your Platform](http://www.alwaysownyourplatform.com/).
+Потому необходимыми для меня приложениями являются:
+
+* [gitea](https://gitea.io/) - git сервер
+* [nextcloud](https://nextcloud.com/) - сервер синхронизации файлов, RSS-читалка и многое другое
+* [transmission](https://transmissionbt.com/) - битторрент клиент (только чтобы скачивать linux дистрибутивы)
+* [jackett](https://github.com/Jackett/Jackett) - API для битторрент серверов
+* [sonarr](https://github.com/Sonarr/Sonarr) - информация о сериалах
+* [lidarr](https://github.com/lidarr/Lidarr/) - информация о музыке
+
+Некоторые другие вещи (например Matrix сервер или Mastodon) пока приходится отложить из-за низкой скорости интернета.
+
+Другие полезные идеи для приложений можно почерпнуть [awesome-selhosted](https://github.com/Kickball/awesome-selfhosted)
 
 # Домашние заготовки
+
+Некоторые полезные вещи для домашнего кластера:
+
+* скрипт для сохранения состояния кластера (`oc get --export` объектов и создание коммита во внутреннем репозитории)
+* [tekton](https://github.com/tektoncd/pipeline) для CI - например, автоматического импорта свежих изменений в ImageStream
+* [local provisioner](https://github.com/kubernetes-sigs/sig-storage-local-static-provisioner) - для выделения локальных каталогов подам
+* [nfs provisioner](https://github.com/kubernetes-incubator/external-storage/tree/master/nfs) - для выделения NFS каталогов подам
+* [alertmanager-bot](https://github.com/metalmatze/alertmanager-bot) - Telegram бот для событий из Alertmanager
+* [nightshift](https://github.com/joyrex2001/nightshift) - бот для управления деплойментами по календарю
+
+
 # Выводы
+
+Одомашенный Kubernetes - это совсем не страшно, главное найти полезное применения старому оборудованию 
+и внимательно следить за алертами из мониторинга.
