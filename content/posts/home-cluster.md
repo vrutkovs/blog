@@ -120,6 +120,7 @@ openshift_disable_check: memory_availability
 * [jackett](https://github.com/Jackett/Jackett) - API для битторрент серверов
 * [sonarr](https://github.com/Sonarr/Sonarr) - информация о сериалах
 * [lidarr](https://github.com/lidarr/Lidarr/) - информация о музыке
+* [этот блог](https://github.com/vrutkovs/blog)
 
 Некоторые другие вещи (например Matrix сервер или Mastodon) пока приходится отложить из-за низкой скорости интернета.
 
