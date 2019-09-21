@@ -1,3 +1,11 @@
 .highlight {
   box-shadow: 1px 1px 1px 1px #a8a8a8;
 }
+
+.post-meta {
+  margin-top: 20px
+}
+
+.comments-link {
+  margin-left: 20px
+}
