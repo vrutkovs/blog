@@ -21,14 +21,17 @@ pygmentscodefencesguesssyntax = true
   favicon_32 = "/img/favicon-32x32.png"
   favicon_16 = "/img/favicon-16x16.png"
 
-  hidecredits = false
-  hidecopyright = false
+  hidecredits = true
+  hidecopyright = true
 
   rtl = false
 
   math = false
 
   custom_css = ["css/extra-style.css"]
+
+  footercontent = '&copy; 2019 Vadim Rutkovsky. <a href="https://creativecommons.org/licenses/by/3.0/" title="Creative Commons Attribution">Some rights reserved</a>; please attribute properly and link back'
+
 
 # Social links
 [[params.social]]
