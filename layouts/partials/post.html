@@ -8,16 +8,18 @@
             <i class="fas fa-calendar"></i>
             <i>{{ .Date.Format (.Site.Params.dateFormat | default "January 2, 2006" ) }}</i>
           </span>
-          {{/*  <span class="comments-link">
-            <i class="fas fa-comment"></i>
-            <a href="https://github.com/vrutkovs/blog/blob/master/content/{{.File.Path }}">Comments</a>
-          </span> */}}
         </div>
       </div>
     </header>
 
     <div>
       {{ .Content }}
+    </div>
+
+    <div id="comments">
+      {{ with .Params.GHissueID }}
+      {{ partial "comments.html" $ }}
+      {{ end }}
     </div>
   </article>
 </section>

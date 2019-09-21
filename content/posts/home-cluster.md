@@ -2,6 +2,7 @@
 title: "k8s at home for fun and leisure"
 date: 2019-09-20T10:35:00+02:00
 draft: false
+GHIssueID: 2
 ---
 
 # Потому что могу
