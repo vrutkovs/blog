@@ -123,7 +123,7 @@ openshift_disable_check: memory_availability
 
 Некоторые другие вещи (например Matrix сервер или Mastodon) пока приходится отложить из-за низкой скорости интернета.
 
-Другие полезные идеи для приложений можно почерпнуть [awesome-selhosted](https://github.com/Kickball/awesome-selfhosted)
+Другие полезные идеи для приложений можно почерпнуть [awesome-selfhosted](https://github.com/Kickball/awesome-selfhosted)
 
 # Домашние заготовки
 
