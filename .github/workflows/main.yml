@@ -27,14 +27,10 @@ jobs:
         binary_path: /usr/share/nginx/html
         binary_image: quay.io/vrutkovs/blog:latest
     - name: login to quay
-      uses: actions/docker/login@master
+      run: docker login -u vrutkovs -p $DOCKER_PASSWORD quay.io
       env:
-        DOCKER_REGISTRY_URL: quay.io
-        DOCKER_USERNAME: vrutkovs
         DOCKER_PASSWORD: ${{ secrets.QUAY_PASSWORD }}
       if: github.event_name == 'push'
     - name: push the image
-      uses: actions/docker/cli@master
-      with:
-        args: "push quay.io/vrutkovs/blog:latest"
+      run: docker push quay.io/vrutkovs/blog:latest
       if: github.event_name == 'push'
