@@ -40,11 +40,6 @@ pygmentscodefencesguesssyntax = true
     weight = 1
     url = "https://github.com/vrutkovs/"
 [[params.social]]
-    name = "ActivityPub"
-    icon = "fab fa-mastodon fa-2x"
-    weight = 2
-    url = "https://nextcloud.vrutkovs.eu/apps/social/@vadim/"
-[[params.social]]
     name = "Twitter"
     icon = "fab fa-twitter fa-2x"
     weight = 3
