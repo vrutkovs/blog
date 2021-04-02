@@ -17,7 +17,7 @@ jobs:
     - uses: vrutkovs/action-s2i@master
       with:
         path: .
-        base: quay.io/vrutkovs/sti-hugo:v0.55-public
+        base: quay.io/vrutkovs/sti-hugo:v0.82
         image: blog:src
     - uses: vrutkovs/action-bin-container@master
       with:
