@@ -65,3 +65,11 @@ pygmentscodefencesguesssyntax = true
     name = "Posts"
     weight = 2
     url  = "/posts/"
+
+[module]
+    [[module.imports]]
+        path = "git.jlel.se/jlelse/hugo-activitystreams"
+
+[outputs]
+  home = ["html", "rss", "activity"]
+  page = ["html", "activity"]
