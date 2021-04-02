@@ -49,6 +49,11 @@ pygmentscodefencesguesssyntax = true
     icon = "fas fa-envelope fa-2x"
     weight = 4
     url = "mailto:vadim@vrutkovs.eu"
+[[params.social]]
+    name = "ActivityPub"
+    icon = "fab fa-mastodon fa-2x"
+    weight = 4
+    url = "https://social.vrutkovs.eu/vadim"
 
 # Menu links
 [[menu.main]]
