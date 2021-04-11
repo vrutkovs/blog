@@ -60,3 +60,7 @@
 .footer {
   font-size: small;
 }
+
+section.container.list > ul > li {
+  display: block;
+}
