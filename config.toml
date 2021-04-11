@@ -6,7 +6,7 @@ defaultContentLanguage = "en"
 
 paginate = 20
 
-pygmentsStyle = "monokailight"
+pygmentsStyle = "b2"
 pygmentsCodeFences = true
 pygmentsCodeFencesGuessSyntax = true
 
