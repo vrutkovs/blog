@@ -1,28 +1,27 @@
 baseurl = "https://vrutkovs.eu/"
 title = "Vadim Rutkovsky"
 theme = "github.com/luizdepra/hugo-coder"
-languagecode = "en"
-defaultcontentlanguage = "en"
+languageCode = "en"
+defaultContentLanguage = "en"
 
 paginate = 20
-canonifyurls = true
 
-pygmentsstyle = "monokailight"
-pygmentscodefences = true
-pygmentscodefencesguesssyntax = true
+pygmentsStyle = "monokailight"
+pygmentsCodeFences = true
+pygmentsCodeFencesGuessSyntax = true
 
 [params]
   author = "Vadim Rutkovsky"
   info = "Senior rubber duck collector"
   description = "Vadim Rutkovsky's personal site"
   keywords = "blog,developer,personal"
-  avatarurl = "images/avatar.jpg"
+  avatarUrl = "images/avatar.jpg"
 
   favicon_32 = "/img/favicon-32x32.png"
   favicon_16 = "/img/favicon-16x16.png"
 
-  hidecredits = true
-  hidecopyright = true
+  hideCredits = true
+  hideCopyright = true
 
   rtl = false
 
@@ -33,7 +32,7 @@ pygmentscodefencesguesssyntax = true
       "css/extra-style.css"
   ]
 
-  footercontent = '<a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/3.0/80x15.png" /></a>&nbsp;<a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.'
+  footerContent = '<a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/3.0/80x15.png" /></a>&nbsp;<a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.'
 
   hideColorSchemeToggle = true
   commit = "https://github.com/vrutkovs/blog/tree/"
