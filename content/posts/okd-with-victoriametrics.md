@@ -7,13 +7,15 @@ GHIssueID: 3
 
 # Y tho
 
-OKD is an opionionated k8s distro, but it's choices may not suit everyone. Here's an example of how to override them.
-For example, one of the most resource-hungry components in the cluster is Prometheus. It is used to store metrics,
-collected from various cluster components. Its designed to be resilient, so two instances of Prometheus are running 
-in the cluster (one if a single node cluster is deployed).
+[OKD](https://okd.io) is an opionioned k8s distro. It heavily uses operators to deploy its components,
+apply changes and upgrade between versions.
 
-However, it might not be the best choice for smaller cluster available. You might have heard of [VictoriaMetrics](https://victoriametrics.com/), specificially designed to be high performant TSDB solution.
-In this blog post I'll describe how to install it on OKD and explore some options around it.
+One of OKD components is cluster monitoring, which uses Prometheus as a storage and query engine 
+to ensure cluster problems could be easily detected by collecting metrics from its components. 
+However some might find Prometheus to be too resource-hungry. You might have heard of [VictoriaMetrics](https://victoriametrics.com/) (or just VM), specificially designed to be high performant TSDB solution.
+
+In this blog post I'll describe how to install VictoriaMetrics on OKD using operator. In the second 
+part we'll learn how to replace in-cluster Prometheus with our own VictoriaMetrics cluster.
 
 All manifests described in this blog post are available at https://github.com/vrutkovs/victoriametrics-okd/
 
