@@ -12,28 +12,28 @@ apply changes and upgrade between versions.
 
 One of OKD components is cluster monitoring, which uses Prometheus as a storage and query engine 
 to ensure cluster problems could be easily detected by collecting metrics from its components. 
-However some might find Prometheus to be too resource-hungry. You might have heard of [VictoriaMetrics](https://victoriametrics.com/) (or just VM), specificially designed to be high performant TSDB solution.
+However, some might find Prometheus to be too resource-hungry. You might have heard of [VictoriaMetrics](https://victoriametrics.com/) (or just VM), specifically designed to be high performant TSDB solution.
 
-In this blog post I'll describe how to install VictoriaMetrics on OKD using operator. In the second 
-part we'll learn how to replace in-cluster Prometheus with our own VictoriaMetrics cluster.
+In this blog post, I'll describe how to install VictoriaMetrics on OKD using the operator. In the second 
+the part we'll learn how to replace in-cluster Prometheus with our own VictoriaMetrics cluster.
 
 All manifests described in this blog post are available at https://github.com/vrutkovs/victoriametrics-okd/
 
 # Operators all the way down
 
 OKD 4 is a k8s distro built around the idea of operators. If you're not familiar with the concept, 
-operator is an app, running in the cluster, which takes care of deploying and reconciling some child resources (called "operand"(s)). For instance, instead of `kubectl apply` or `helm install` you could write an app, which ensures necessary
-objects are created in the cluster, without describing them in YAML, but using your favourite programming language and k8s API.
+an operator is an app, running in the cluster, which takes care of deploying and reconciling some child resources (called "operand"(s)). For instance, instead of `kubectl apply` or `helm install` you could write an app, which ensures necessary
+objects are created in the cluster, without describing them in YAML, but using your favorite programming language and k8s API.
 Thus an operator is a k8s-native service, built to deploy and control user applications.
 
-The benefit of this approach is better control over the operand's lifecycle - the operator watches operand state and ensures changes are applied automatically and the operand is not being removed. This also allows complicated pre- or post-deploy hooks to be executed on update.
+The benefit of this approach is improved control over the operand's lifecycle - the operator watches the operand state and ensures changes are applied automatically and the operand is not being removed. This also allows complicated pre- or post-deploy hooks to be executed on update.
 
 # Installing VictoriaMetrics operator
 
-Operators can be bundled in container images, same as any other k8s apps. [OperatorHub](https://operatorhub.io) is a primary source of community-built operators. Apart from hosting operator images, it also has [Operator Lifecycle Manager](https://olm.operatorframework.io/) utility, which allows listing, installing and updating operators easily. OKD comes with OperatorHub subscription and OLM out of the box.
+Operators can be bundled in container images, similar to any other k8s apps. [OperatorHub](https://operatorhub.io) is a primary source of community-built operators. Apart from hosting operator images, it also has [Operator Lifecycle Manager](https://olm.operatorframework.io/) utility, which allows listing, installing, and updating operators easily. OKD comes with OperatorHub subscription and OLM out of the box.
 
-In OKD console you'll find "Operators" tab with OperatorHub subitem. It opens a list of available operators. Operators can be installed in a specific namespace, can be namespace-wide or cluster-wide. Different operator versions can be installed by selecting a channel (if available). OLM will ensure the operator is updated when a new version in the channel is posted.
-In VictoriaMetrics case, operator is usually cluster-wide (to scrape metrics from user apps in different namespaces).
+In OKD console you'll find "Operators" tab with OperatorHub subitem. It opens a list of available operators. Operators can be installed in a specific namespace or cluster-wide. Different operator versions can be installed by selecting a channel (if available). OLM will ensure the operator is updated when a new version in the channel is posted.
+In VictoriaMetrics case, the operator is usually cluster-wide (to scrape metrics from user apps in different namespaces).
 
 Operators can be controlled by Custom Resourced. OLM outputs which CRs the operator is controlling in "Provided APIs" section.
 For VictoriaMetrics the easiest to start with would be `VMSingle`, describing a single node all-in-one VictoriaMetrics cluster.
@@ -72,7 +72,7 @@ It describes the following aspects of the deployment:
 * `spec.storage` allocates a PVC with 20GB for data
 * `spec.image` is unset to use VM image at operator's discretion
 
-On `Resources` tab a list of created k8s resources is displayed. Make sure that `Deployment` there is ready and pods are running without crashlooping.
+On `Resources` tab, a list of created k8s resources is displayed. Make sure that `Deployment` there is ready and pods are running without crashlooping.
 
 Let's expose the VictoriaMetrics so that we could open its UI in a browser:
 ```yaml
@@ -96,7 +96,7 @@ spec:
     targetPort: http
 ```
 
-Operator is creating `VMServiceScrape` object automatically, so that VM could monitor itself:
+The operator is creating `VMServiceScrape` object automatically so that VM could monitor itself:
 ```yaml
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMServiceScrape
@@ -130,7 +130,7 @@ spec:
 ```
 However, another component is required to configure scraping - `VMAgent`.
 
-Operator can spin up VMAgent for us:
+The operator can spin up VMAgent for us:
 ```yaml
 kind: VMAgent
 apiVersion: operator.victoriametrics.com/v1beta1
@@ -157,8 +157,8 @@ spec:
   staticScrapeSelector: {}
 ```
 
-Operator would create `vmagent` pod, which scrapes previously mentioned `VMServiceScrape` and send data 
-to VictoriaMetrics. We can ensure VM metrics are collected by quiering for `vm_app_version` in the UI.
+The operator would create a `vmagent` pod, which scrapes the previously mentioned `VMServiceScrape` and send data 
+to VictoriaMetrics. We can ensure VM metrics are collected by querying for `vm_app_version` in the UI.
 
 
 # Replacing OKD Prometheus with VictoriaMetrics
@@ -168,30 +168,30 @@ solutions in our cluster - Prometheus and VictoriaMetrics. OKD can deploy anothe
 to keep user metrics - see [Enabling monitoring for user-defined projects](https://docs.okd.io/latest/monitoring/enabling-monitoring-for-user-defined-projects.html) so that cluster and user metrics would be separated. 
 This comes at a cost of running another Prometheus instance.
 
-For some users this may require too much resources and we can replace cluster Prometheus with VictoriaMetrics and use 
-the latter for both metrics. This will use less resource but complicate separation of concerns.
+For some users, this may require too many resources and we can replace cluster Prometheus with VictoriaMetrics and use 
+the latter for both metrics. This will use fewer resources but complicate the separation of concerns.
 
 ## WARNING
 The following procedure will make your OKD cluster unupgradable and you have to reverse the procedure 
-in order to update it. OKD requires all operators to be configured via Custom Resources to be upgradable,
+to update it. OKD requires all operators to be configured via Custom Resources to be upgradable,
 and the following procedure will disable `cluster-monitoring-operator` as it can't deploy VictoriaMetrics 
-instead of Prometheus. As we intervene into the deployed operator status CVO cannot guarantee that upgrade 
+instead of Prometheus. As we intervene in the deployed operator status CVO cannot guarantee that upgrade 
 would pass and will not start it. You can upgrade again after removing overrides, which will deploy Prometheus 
 and revert some manual changes.
 
-OKD is operator-based k8s distro. This means all OKD operators - changing settings, updates etc. - are performed 
-by operators. These are however not posted to OperatorHub but included in OKD payload, as they are not meant to 
+OKD is an operator-based k8s distro. This means all OKD operators - changing settings, updates, etc. - are performed 
+by operators. These are however not posted to OperatorHub but included in the OKD payload, as they are not meant to 
 be used separately, but in collaboration with other, "core" operators.
 
-Default Prometheus instance is deployed by `prometheus-operator` in `openshift-monitoring` namespace. This operator 
+Default Prometheus instance is deployed by `prometheus-operator` in the `openshift-monitoring` namespace. This operator 
 cannot be modified directly, as its being created and reconciled by `cluster-monitoring-operator`. As of today, in OKD 4.10, 
-`cluster-monitoring-operator` cannot be controlled to avoid deploying Prometheus, as its a core part of the monitoring solution.
+`cluster-monitoring-operator` cannot be controlled to avoid deploying Prometheus, as it's a core part of the monitoring solution.
 OKD's core principle is "batteries included" so it cannot leave the user without any kind of monitoring.
 
-However, we can disable `cluster-monitoring-operator` after it has created necessary resources and replace it with a custom solution.
-This operator, in its turn, is not deployed separated, but controlled by OKD's top level operator - Cluster Version Operator.
+However, we can disable `cluster-monitoring-operator` after it has created the necessary resources and replace it with a custom solution.
+This operator, in its turn, is not deployed separated but controlled by OKD's top-level operator - Cluster Version Operator.
 
-Cluster Version Operator (or simply CVO) can be configured to turn the blind eye on some changes:
+Cluster Version Operator (or simply CVO) can be configured to turn a blind eye to some changes:
 ```yaml
 apiVersion: config.openshift.io/v1
 kind: ClusterVersion
@@ -206,9 +206,9 @@ spec:
       unmanaged: true
 ```
 
-This tells CVO to stop reconciling `cluster-monitoring-operator` deployment in `openshift-monitoring` namespaces, so that user can change it. This override will prevent CVO from upgrading the cluster until this override is removed.
+This tells CVO to stop reconciling the `cluster-monitoring-operator` deployment in `openshift-monitoring` namespaces so that the user can change it. This override will prevent CVO from upgrading the cluster until this override is removed.
 
-Next we can scale down `cluster-monitoring-operator` to zero replicas:
+Next, we can scale down `cluster-monitoring-operator` to zero replicas:
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -230,7 +230,7 @@ spec:
   replicas: 0
 ```
 
-Instead of prometheus we could now deploy another VictoriaMetrics instance. This time we'll deploy 
+Instead of prometheus, we could now deploy another VictoriaMetrics instance. This time we'll deploy 
 a proper cluster with 2 instances for resilience:
 ```yaml
 apiVersion: operator.victoriametrics.com/v1beta1
@@ -281,7 +281,7 @@ spec:
     storageDataPath: /vm-data
 ```
 
-We need to place it in `openshift-monitoring` namespace so that OKD console could query it.
+We need to place it in the `openshift-monitoring` namespace so that OKD console could query it.
 
 Now we can deploy `VMAgent` so that it would convert prometheus-operator's `ServiceMonitors`/`PodMonitoring` into VM-specific objects:
 ```yaml
@@ -314,11 +314,11 @@ spec:
   - serving-certs-ca-bundle
   - kubelet-serving-ca-bundle
 ```
-OKD cluster serve system metrics from kubelet/etcd via HTTPs, so this VMAgent pod will mount CA bundles and secrets to access them.
+OKD cluster serves system metrics from kubelet/etcd via HTTPS, so this VMAgent pod will mount CA bundles and secrets to access them.
 
-Now we also need an additional, home-grown service to rewrite requests for console. The reason being is that OKD console uses Thanos API, connecting to `thanos-querier` so that it could display metrics from system Prometheus and user-level Prometheus.
+Now we also need an additional, home-grown service to rewrite requests for the console. The reason being is that OKD console uses Thanos API, connecting to `thanos-querier` so that it could display metrics from system Prometheus and user-level Prometheus.
 
-In our deployment we don't need it - a single VM cluster is serving all requests. As a result, we can deploy a simple nginx to route Thanos API requests to VictoriaMetrics:
+In our deployment we don't need it - a single VM cluster is serving all requests. As a result, we can deploy a simple Nginx to route Thanos API requests to VictoriaMetrics:
 ```yaml
 apiVersion: v1
 kind: ConfigMap
@@ -490,7 +490,7 @@ spec:
           defaultMode: 420
           optional: true
 ```
-This pod would use the same secrets/configmaps as original OKD thanos-querier pod.
+This pod would use the same secrets/configmaps as the original OKD thanos-querier pod.
 
 Now existing services need to be reconfigured to point to the proxy:
 ```yaml
@@ -546,7 +546,7 @@ spec:
     app: vm-to-prom-proxy
 ```
 
-Now we're ready to scale down existing `thanos-querier`:
+Now we're ready to scale down the existing `thanos-querier`:
 ```yaml
 apiVersion: apps/v1
 kind: Deployment
@@ -558,11 +558,11 @@ spec:
 ```
 
 and voila.
-After all these operations OKD console would still deplay metrics for pods/deployments and can use 
-in-console UI to make requests, but the requests would be processed by VictoriaMetrics. One of the most 
+After all these operations OKD console would still display metrics for pods/deployments and can use 
+the in-console UI to make requests, but the requests would be processed by VictoriaMetrics. One of the most 
 immediate benefits would be lower resource consumption.
 
-Additionally we can deploy `VMAlert` component to route alerts to OKD Alertmanager:
+Additionally, we can deploy `VMAlert` component to route alerts to OKD Alertmanager:
 ```yaml
 apiVersion: operator.victoriametrics.com/v1beta1
 kind: VMAlert
@@ -586,6 +586,6 @@ spec:
 VictoriaMetrics is a powerful monitoring solution with several distinct features and lower resource 
 consumption. VM operator is making VictoriaMetrics deployment a breeze.
 
-Replacing in-cluster monitoring solution in OKD is however not trivial, as it requires overriding 
-operator settings. While its complicated, its still possible, showing the flexibility of OKD and 
+Replacing the in-cluster monitoring solution in OKD is however not trivial, as it requires overriding 
+operator settings. While the procedure may seem complicated, doing so is still possible, showing the flexibility of OKD and 
 operator pattern in general
