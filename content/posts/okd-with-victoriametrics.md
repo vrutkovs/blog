@@ -49,7 +49,6 @@ metadata:
   namespace: openshift-operators
 spec:
   image: {}
-  logLevel: PANIC
   removePvcAfterDelete: true
   resources:
     limits:
