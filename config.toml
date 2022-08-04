@@ -28,7 +28,6 @@ pygmentsCodeFencesGuessSyntax = true
   math = false
 
   customCSS = [
-      "css/fontawesome/all.min.css",
       "css/extra-style.css"
   ]
 
@@ -40,22 +39,22 @@ pygmentsCodeFencesGuessSyntax = true
 # Social links
 [[params.social]]
     name = "Github"
-    icon = "fab fa-github fa-2x"
+    icon = "fa fa-github"
     weight = 1
     url = "https://github.com/vrutkovs/"
 [[params.social]]
     name = "Twitter"
-    icon = "fab fa-twitter fa-2x"
+    icon = "fa fa-twitter"
     weight = 3
     url = "https://twitter.com/vrutkovs/"
 [[params.social]]
     name = "Email"
-    icon = "fas fa-envelope fa-2x"
+    icon = "fa fa-envelope"
     weight = 4
     url = "mailto:vadim@vrutkovs.eu"
 [[params.social]]
     name = "ActivityPub"
-    icon = "fab fa-mastodon fa-2x"
+    icon = "fa fa-mastodon"
     weight = 4
     url = "https://social.vrutkovs.eu/@vadim"
 
@@ -76,15 +75,7 @@ pygmentsCodeFencesGuessSyntax = true
     [[module.imports]]
         path = "github.com/luizdepra/hugo-coder"
     [[module.imports]]
-        path = "github.com/FortAwesome/Font-Awesome"
-    [[module.imports]]
         path = "github.com/martignoni/hugo-notice"
-    [[module.imports.mounts]]
-        source = "css"
-        target = "content/css/fontawesome"
-    [[module.imports.mounts]]
-        source = "webfonts"
-        target = "content/css/webfonts"
 
 [outputs]
   home = ["html", "rss"]

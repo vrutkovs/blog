@@ -2,6 +2,8 @@ git.jlel.se/jlelse/hugo-activitystreams v0.0.0-20200623185019-0c383d3265b9 h1:T0
 git.jlel.se/jlelse/hugo-activitystreams v0.0.0-20200623185019-0c383d3265b9/go.mod h1:m8UQFJmo99j08LQgJcED0LTOwu1OfzGg1cpeFf1TMLs=
 github.com/FortAwesome/Font-Awesome v0.0.0-20210316185733-d79d85c3fad8 h1:3h1ZlZmKNqZtiTD6FF7GijnIB/PU9/jR+dclHF80pFE=
 github.com/FortAwesome/Font-Awesome v0.0.0-20210316185733-d79d85c3fad8/go.mod h1:IUgezN/MFpCDIlFezw3L8j83oeiIuYoj28Miwr/KUYo=
+github.com/FortAwesome/Font-Awesome v0.0.0-20220725174816-701d64a89432 h1:l59QNdk7uTnIv1kTUDhvsTIyHaK5pykXbk4Ya0mSJPg=
+github.com/FortAwesome/Font-Awesome v0.0.0-20220725174816-701d64a89432/go.mod h1:IUgezN/MFpCDIlFezw3L8j83oeiIuYoj28Miwr/KUYo=
 github.com/FortAwesome/Font-Awesome v1.0.0 h1:f6Kfj7kf+taIaN0hRc7QgyLw7KxH/9nFI9t4vMpwgWw=
 github.com/FortAwesome/Font-Awesome v4.7.0+incompatible h1:3trjm7NtX5NXlju1AxSWSzedDMq2hsfH78Qtqrc8EgY=
 github.com/FortAwesome/Font-Awesome v4.7.0+incompatible/go.mod h1:IUgezN/MFpCDIlFezw3L8j83oeiIuYoj28Miwr/KUYo=
