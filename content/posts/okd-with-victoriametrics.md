@@ -1,7 +1,7 @@
 ---
 title: "OKD with VictoriaMetrics"
 date: 2022-07-29T12:29:00+02:00
-draft: true
+draft: false
 GHIssueID: 3
 ---
 
@@ -230,6 +230,8 @@ spec:
   replicas: 0
 ```
 
+![Look ma, no Prometheus](images/okd-vm-01.png)
+
 Instead of prometheus, we could now deploy another VictoriaMetrics instance. This time we'll deploy 
 a proper cluster with 2 instances for resilience:
 ```yaml
@@ -366,129 +368,7 @@ spec:
             memory: 20Mi
         terminationMessagePath: /dev/termination-log
         name: prometheus-proxy
-        env:
-          - name: HTTP_PROXY
-          - name: HTTPS_PROXY
-          - name: NO_PROXY
-        ports:
-          - name: web
-            containerPort: 9091
-            protocol: TCP
-        imagePullPolicy: IfNotPresent
-        volumeMounts:
-          - name: secret-thanos-querier-tls
-            mountPath: /etc/tls/private
-          - name: secret-prometheus-k8s-proxy
-            mountPath: /etc/proxy/secrets
-          - name: secret-prometheus-k8s-htpasswd
-            mountPath: /etc/proxy/htpasswd
-          - name: prometheus-trusted-ca-bundle
-            readOnly: true
-            mountPath: /etc/pki/ca-trust/extracted/pem/
-        terminationMessagePolicy: FallbackToLogsOnError
-        image: >-
-          quay.io/openshift/okd-content:4.10.0-0.okd-2022-05-07-021833-oauth-proxy
-        args:
-          - '-provider=openshift'
-          - '-https-address=:9091'
-          - '-http-address='
-          - '-email-domain=*'
-          - '-upstream=http://localhost:8080'
-          - '-openshift-service-account=prometheus-k8s'
-          - '-openshift-sar={"resource": "namespaces", "verb": "get"}'
-          - >-
-            -openshift-delegate-urls={"/": {"resource": "namespaces", "verb":
-            "get"}}
-          - '-tls-cert=/etc/tls/private/tls.crt'
-          - '-tls-key=/etc/tls/private/tls.key'
-          - >-
-            -client-secret-file=/var/run/secrets/kubernetes.io/serviceaccount/token
-          - '-cookie-secret-file=/etc/proxy/secrets/session_secret'
-          - '-openshift-ca=/etc/pki/tls/cert.pem'
-          - '-openshift-ca=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt'
-          - '-htpasswd-file=/etc/proxy/htpasswd/auth'
-      - resources:
-          requests:
-            cpu: 1m
-            memory: 10Mi
-        terminationMessagePath: /dev/termination-log
-        name: thanos-proxy
-        ports:
-          - name: thanos-proxy
-            containerPort: 9092
-            protocol: TCP
-        imagePullPolicy: IfNotPresent
-        volumeMounts:
-          - name: secret-thanos-querier-tls
-            mountPath: /etc/tls/private
-          - name: secret-thanos-querier-oauth-cookie
-            mountPath: /etc/proxy/secrets
-          - name: thanos-querier-trusted-ca-bundle
-            readOnly: true
-            mountPath: /etc/pki/ca-trust/extracted/pem/
-        terminationMessagePolicy: FallbackToLogsOnError
-        image: >-
-          quay.io/openshift/okd-content:4.10.0-0.okd-2022-05-07-021833-oauth-proxy
-        args:
-          - '-provider=openshift'
-          - '-https-address=:9092'
-          - '-http-address='
-          - '-email-domain=*'
-          - '-upstream=http://localhost:8080'
-          - '-openshift-service-account=thanos-querier'
-          - '-openshift-sar={"resource": "namespaces", "verb": "get"}'
-          - >-
-            -openshift-delegate-urls={"/": {"resource": "namespaces", "verb":
-            "get"}}
-          - '-tls-cert=/etc/tls/private/tls.crt'
-          - '-tls-key=/etc/tls/private/tls.key'
-          - >-
-            -client-secret-file=/var/run/secrets/kubernetes.io/serviceaccount/token
-          - '-cookie-secret-file=/etc/proxy/secrets/session_secret'
-          - '-openshift-ca=/etc/pki/tls/cert.pem'
-          - '-openshift-ca=/var/run/secrets/kubernetes.io/serviceaccount/ca.crt'
-          - '-bypass-auth-for=^/-/(healthy|ready)$'
-      serviceAccount: prometheus-k8s
-      volumes:
-      - name: nginx-conf
-        configMap:
-          name: vm-to-prom-proxy-conf
-      - name: secret-thanos-querier-tls
-        secret:
-          secretName: thanos-querier-tls
-          defaultMode: 420
-      - name: secret-prometheus-k8s-proxy
-        secret:
-          secretName: prometheus-k8s-proxy
-          defaultMode: 420
-      - name: secret-prometheus-k8s-htpasswd
-        secret:
-          secretName: prometheus-k8s-htpasswd
-          defaultMode: 420
-      - name: prometheus-trusted-ca-bundle
-        configMap:
-          name: prometheus-trusted-ca-bundle
-          items:
-            - key: ca-bundle.crt
-              path: tls-ca-bundle.pem
-          defaultMode: 420
-          optional: true
-      - name: secret-thanos-querier-tls
-        secret:
-          secretName: thanos-querier-tls
-          defaultMode: 420
-      - name: secret-thanos-querier-oauth-cookie
-        secret:
-          secretName: thanos-querier-oauth-cookie
-          defaultMode: 420
-      - name: thanos-querier-trusted-ca-bundle
-        configMap:
-          name: thanos-querier-trusted-ca-bundle
-          items:
-            - key: ca-bundle.crt
-              path: tls-ca-bundle.pem
-          defaultMode: 420
-          optional: true
+...
 ```
 This pod would use the same secrets/configmaps as the original OKD thanos-querier pod.
 
@@ -558,9 +438,14 @@ spec:
 ```
 
 and voila.
+
+![VictoriaMetrics running in openshift-monitoring](images/okd-vm-02.png)
+
 After all these operations OKD console would still display metrics for pods/deployments and can use 
 the in-console UI to make requests, but the requests would be processed by VictoriaMetrics. One of the most 
 immediate benefits would be lower resource consumption.
+
+![Pod details](images/okd-vm-03.png)
 
 Additionally, we can deploy `VMAlert` component to route alerts to OKD Alertmanager:
 ```yaml
@@ -580,6 +465,28 @@ spec:
   extraArgs:
     remoteWrite.url: http://vminsert-vmcluster.openshift-monitoring.svc.cluster.local:8480/insert/0/prometheus
 ```
+
+and expose VMSelect to make use of VM UI:
+```yaml
+kind: Route
+apiVersion: route.openshift.io/v1
+metadata:
+  name: vmselect
+  namespace: openshift-monitoring
+spec:
+  to:
+    kind: Service
+    name: vmselect-vmcluster
+    weight: 100
+  port:
+    targetPort: http
+  tls:
+    termination: edge
+    insecureEdgeTerminationPolicy: Redirect
+  wildcardPolicy: None
+```
+
+![VMUI](images/okd-vm-04.png)
 
 ## Conclusion
 
