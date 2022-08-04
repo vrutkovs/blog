@@ -171,13 +171,14 @@ This comes at a cost of running another Prometheus instance.
 For some users, this may require too many resources and we can replace cluster Prometheus with VictoriaMetrics and use 
 the latter for both metrics. This will use fewer resources but complicate the separation of concerns.
 
-## WARNING
+{{< notice warning >}}
 The following procedure will make your OKD cluster unupgradable and you have to reverse the procedure 
 to update it. OKD requires all operators to be configured via Custom Resources to be upgradable,
 and the following procedure will disable `cluster-monitoring-operator` as it can't deploy VictoriaMetrics 
 instead of Prometheus. As we intervene in the deployed operator status CVO cannot guarantee that upgrade 
 would pass and will not start it. You can upgrade again after removing overrides, which will deploy Prometheus 
 and revert some manual changes.
+{{< /notice >}}
 
 OKD is an operator-based k8s distro. This means all OKD operators - changing settings, updates, etc. - are performed 
 by operators. These are however not posted to OperatorHub but included in the OKD payload, as they are not meant to 

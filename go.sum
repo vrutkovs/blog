@@ -7,3 +7,5 @@ github.com/FortAwesome/Font-Awesome v4.7.0+incompatible h1:3trjm7NtX5NXlju1AxSWS
 github.com/FortAwesome/Font-Awesome v4.7.0+incompatible/go.mod h1:IUgezN/MFpCDIlFezw3L8j83oeiIuYoj28Miwr/KUYo=
 github.com/luizdepra/hugo-coder v0.0.0-20210407132441-faef9bf0d6fe h1:aoxXhH/1bP8gbnOGbkiBAIL/zHw/hWLdRLqTcL4h478=
 github.com/luizdepra/hugo-coder v0.0.0-20210407132441-faef9bf0d6fe/go.mod h1:9EQBf2rU+NPjlohGuKcEgdqSeOc3tIQoOty4xPpuUQ4=
+github.com/martignoni/hugo-notice v0.0.0-20220530193630-09c8d1e21678 h1:0U19sJudllaaO7HyBc7+tF/WaAWFhqexKWztyru/Kd0=
+github.com/martignoni/hugo-notice v0.0.0-20220530193630-09c8d1e21678/go.mod h1:k+PSLmVlZC5iWWxLLOSDQetCCeeqKZQvQJ+AXLg6X1A=
