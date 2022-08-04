@@ -231,7 +231,7 @@ spec:
   replicas: 0
 ```
 
-![Look ma, no Prometheus](images/okd-vm-01.png)
+![Look ma, no Prometheus](/images/okd-vm-01.png)
 
 Instead of prometheus, we could now deploy another VictoriaMetrics instance. This time we'll deploy 
 a proper cluster with 2 instances for resilience:
@@ -440,13 +440,13 @@ spec:
 
 and voila.
 
-![VictoriaMetrics running in openshift-monitoring](images/okd-vm-02.png)
+![VictoriaMetrics running in openshift-monitoring](/images/okd-vm-02.png)
 
 After all these operations OKD console would still display metrics for pods/deployments and can use 
 the in-console UI to make requests, but the requests would be processed by VictoriaMetrics. One of the most 
 immediate benefits would be lower resource consumption.
 
-![Pod details](images/okd-vm-03.png)
+![Pod details](/images/okd-vm-03.png)
 
 Additionally, we can deploy `VMAlert` component to route alerts to OKD Alertmanager:
 ```yaml
@@ -487,7 +487,7 @@ spec:
   wildcardPolicy: None
 ```
 
-![VMUI](images/okd-vm-04.png)
+![VMUI](/images/okd-vm-04.png)
 
 ## Conclusion
 
