@@ -1,59 +1,61 @@
-<script>
-  var id = {{ .Params.GHissueID }};
+<div class="article-content">
+  <h2>Comments</h2>
+  <p>You can use your AciviyPub account to reply to this <a class="link" href="https://{{ .host }}/@{{ .username }}/{{ .id }}">post</a>.</p>
+  <p><a class="button" href="https://{{ .host }}/interact/{{ .id }}?type=reply">Reply</a></p>
+  <p id="mastodon-comments-list"><button id="load-comment">Load comments</button></p>
+  <noscript><p>You need JavaScript to view the comments.</p></noscript>
+  <script src="/js/purify.min.js"></script>
+  <script type="text/javascript">
+    function escapeHtml(unsafe) {
+      return unsafe
+           .replace(/&/g, "&amp;")
+           .replace(/</g, "&lt;")
+           .replace(/>/g, "&gt;")
+           .replace(/"/g, "&quot;")
+           .replace(/'/g, "&#039;");
+   }
 
-  if (id) {
-    let url = "https://github.com/vrutkovs/blog/issues/".concat(id);
-    let api_url = "https://api.github.com/repos/vrutkovs/blog/issues/".concat(id, "/comments");
-
-    var commentsDiv = document.getElementById("comments");
-
-    let xhr = new XMLHttpRequest();
-    xhr.responseType = "json";
-    xhr.open("GET", api_url);
-    xhr.setRequestHeader("Accept", "application/vnd.github.v3.html+json");
-    xhr.send();
-
-    xhr.onload = function () {
-      if (xhr.status != 200) {
-        let errorText = document.createElement("p");
-        errorText.innerHTML = "<i>Комментарии излишни</i>";
-        commentsDiv.appendChild(errorText);
-      }
-      else {
-        let comments = xhr.response;
-
-        let mainHeader = document.createElement("h2");
-        mainHeader.innerHTML = "Комментарии: ".concat(comments.length);
-        commentsDiv.appendChild(mainHeader);
-
-        let issueLink = document.createElement("p");
-        issueLink.innerHTML = "<i><a href='".concat(url, "'>Оставить комментарий</a>.</i>");
-        commentsDiv.appendChild(issueLink);
-
-        comments.forEach(function (comment) {
-          let commentContent = document.createElement("div");
-          commentContent.setAttribute('class', 'gh-comment')
-          commentContent.innerHTML = "".concat(
-            "<div class='gh-header'>",
-            "<img src='", comment.user.avatar_url, "' />",
-            "<div style='margin:auto 0;'>",
-            "<b><a class='gh-username' href='", comment.user.html_url, "'>", comment.user.login, "</a></b>",
-            " commented at <em>", new Date(comment.created_at), "</em>",
-            "</div>",
-            "</div>",
-            "<div class='gh-body'>",
-            comment.body_html,
-            "</div>"
-          );
-          commentsDiv.appendChild(commentContent);
+    document.getElementById("load-comment").addEventListener("click", function() {
+      document.getElementById("load-comment").innerHTML = "Loading";
+      fetch('https://{{ .host }}/api/v1/statuses/{{ .id }}/context')
+        .then(function(response) {
+          return response.json();
+        })
+        .then(function(data) {
+          if(data['descendants'] &&
+             Array.isArray(data['descendants']) &&
+            data['descendants'].length > 0) {
+              document.getElementById('mastodon-comments-list').innerHTML = "";
+              data['descendants'].forEach(function(reply) {
+                reply.account.display_name = escapeHtml(reply.account.display_name);
+                reply.account.emojis.forEach(emoji => {
+                  reply.account.display_name = reply.account.display_name.replace(`:${emoji.shortcode}:`,
+                    `<img src="${escapeHtml(emoji.static_url)}" alt="Emoji ${emoji.shortcode}" height="20" width="20" />`);
+                });
+                mastodonComment =
+                  `<div class="mastodon-comment">
+                     <div class="avatar">
+                       <img src="${escapeHtml(reply.account.avatar_static)}" height=60 width=60 alt="">
+                     </div>
+                     <div class="content">
+                       <div class="author">
+                         <a href="${reply.account.url}" rel="nofollow">
+                           <span>${reply.account.display_name}</span>
+                           <span class="disabled">${escapeHtml(reply.account.acct)}</span>
+                         </a>
+                         <a class="date" href="${reply.uri}" rel="nofollow">
+                           ${reply.created_at.substr(0, 10)}
+                         </a>
+                       </div>
+                       <div class="mastodon-comment-content">${reply.content}</div>
+                     </div>
+                   </div>`;
+                document.getElementById('mastodon-comments-list').appendChild(DOMPurify.sanitize(mastodonComment, {'RETURN_DOM_FRAGMENT': true}));
+              });
+          } else {
+            document.getElementById('mastodon-comments-list').innerHTML = "";
+          }
         });
-      }
-    };
-
-    xhr.onerror = function () {
-      let errorText = document.createElement("p");
-      errorText.innerHTML = "<i>Комментарии не смогли, повторите попытку.</i>";
-      commentsDiv.appendChild(errorText);
-    };
-  }
-</script>
+      });
+  </script>
+</div>

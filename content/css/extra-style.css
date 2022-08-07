@@ -6,61 +6,40 @@
   margin-top: 20px
 }
 
-#comments {
-    margin-top: 30px;
-}
-
-.gh-comment {
-  border: 1px solid #d1d5da;
-  margin-top: 15px;
-}
-
-.gh-header {
-  display: flex;
-  color: #586069;
-  background-color: #f6f8fa;
-  border-bottom: 1px solid #d1d5da;
-  padding: 10px;
-  font-size: 85%;
-}
-
-.gh-username {
-  color: #586069;
-}
-
-.gh-body {
-  padding: 10px 15px;
-}
-
-.gh-body code {
-  font-size: 120%;
-}
-.gh-body > div.highlight > pre {
-  padding: 10px;
-  color: lime;
-  font-size: 120%;
-  background-color: #000;
-  border-radius: 5px;
-}
-
-.gh-comment p {
-  margin: 0px 0px 10px 0px;
-}
-.gh-comment p:last-child {
-  margin: 0;
-}
-
-.gh-header > img {
-  width: 24px;
-  height: 24px;
-  margin-right: 10px;
-  vertical-align: middle;
-}
-
 .footer {
   font-size: small;
 }
 
 section.container.list > ul > li {
   display: block;
+}
+
+.mastodon-comment {
+  background-color: var(--body-background);
+  border-radius: var(--card-border-radius);
+  padding: var(--card-padding);
+  margin-bottom: 1rem;
+  display: flex;
+}
+
+.mastodon-comment .content {
+  flex-grow: 2;
+}
+.mastodon-comment .avatar img {
+  margin-right: 1rem;
+  min-width: 60px;
+}
+.mastodon-comment .author {
+  padding-top: 0;
+  display: flex;
+}
+.mastodon-comment .date {
+    margin-left: auto;
+}
+.mastodon-comment .disabled {
+  color: var(--accent-color)
+}
+
+.mastodon-comment-content p:first-child {
+    margin-top: 0;
 }
