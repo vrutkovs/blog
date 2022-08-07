@@ -70,8 +70,6 @@ pygmentsCodeFencesGuessSyntax = true
     url  = "/posts/"
 
 [module]
-    # [[module.imports]]
-    #     path = "git.jlel.se/jlelse/hugo-activitystreams"
     [[module.imports]]
         path = "github.com/luizdepra/hugo-coder"
     [[module.imports]]
