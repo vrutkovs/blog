@@ -2,7 +2,10 @@
 title: "Remember - no Dockerfiles"
 date: 2019-09-05T10:35:00+02:00
 draft: false
-GHIssueID: 1
+comments:
+  host: social.vrutkovs.eu
+  username: vadim
+  id: none
 ---
 
 Многие разработчики разочарованы в магии современного контейнерного подхода.
