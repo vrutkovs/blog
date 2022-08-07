@@ -2,7 +2,10 @@
 title: "OKD with VictoriaMetrics"
 date: 2022-07-29T12:29:00+02:00
 draft: false
-GHIssueID: 3
+comments:
+  host: social.vrutkovs.eu
+  username: vadim
+  id: AMHEoRTGDrf6hG83Em
 ---
 
 # Y tho
