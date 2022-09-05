@@ -95,16 +95,37 @@ podman run -d \
 
 ## Pull secret
 
-```
-git clone https://github.com/vrutkovs/disconnected-okd /srv/assisted-service
-cd /srv/assisted-service
-podman play kube --configmap okd-disconnected-configmap.yml disconnected-pod.yml
-```
-
 Our registry requires authentication, so we'll need to re-login to get a pullsecret:
 ```
 podman login registry.vrutkovs.eu --authfile=/tmp/pullsecret.json
 cat /tmp/pullsecret.json
+```
+
+## Run Assisted Installer in podman
+
+Fetch configuration and pod definition:
+```
+mkdir /srv/assisted-service
+cd /srv/assisted-service
+wget -O disconnected-okd-configmap.yml https://github.com/openshift/assisted-service/raw/master/deploy/podman/okd-configmap.yml
+wget -O disconnected-pod.yml https://github.com/openshift/assisted-service/raw/master/deploy/podman/pod.yml
+```
+
+These images are using `quay.io` and use `127.0.0.1` as address. Instead we want to use the local mirror and `assisted.vrutkovs.eu`:
+
+```
+sed -i 's;quay.io/edge-infrastructure;registry.vrutkovs.eu/assisted;g' disconnected-pod.yml
+sed -i 's;quay.io/centos7;registry.vrutkovs.eu/assisted;g' disconnected-pod.yml
+sed -i 's;127.0.0.1:8;assisted.vrutkovs.eu:8;g' disconnected-okd-configmap.yml
+sed -i 's;127.0.0.1:8090;assisted.vrutkovs.eu:8090;g' disconnected-okd-configmap.yml
+sed -i 's;https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/36.20220716.3.1/x86_64;http://assisted.vrutkovs.eu:3000;g' disconnected-okd-configmap.yml
+sed -i 's;quay.io/openshift;registry.vrutkovs.eu/okd/okd;g' disconnected-okd-configmap.yml
+sed -i 's;quay.io/vrutkovs/okd-rpms;registry.vrutkovs.eu/assisted/okd-rpms;g' disconnected-okd-configmap.yml
+```
+
+Once config and pod definition are updated for disconnected use, lets use podman to start Assisted Installer:
+```
+podman play kube --configmap okd-disconnected-configmap.yml disconnected-pod.yml
 ```
 
 ## OKD installation
