@@ -123,6 +123,14 @@ sed -i 's;quay.io/openshift;registry.vrutkovs.eu/okd/okd;g' disconnected-okd-con
 sed -i 's;quay.io/vrutkovs/okd-rpms;registry.vrutkovs.eu/assisted/okd-rpms;g' disconnected-okd-configmap.yml
 ```
 
+The cluster's mirroring settings prevent mirroring by tags, so we need custom setting to use Assisted Installer controller image via digest
+
+```
+cat >> disconnected-okd-configmap.yml << EOF
+  CONTROLLER_IMAGE: $(skopeo inspect docker://registry.vrutkovs.eu/assisted/assisted-installer-controller:latest --format "{{.Name}}@{{.Digest}}")
+EOF
+```
+
 Once config and pod definition are updated for disconnected use, lets use podman to start Assisted Installer:
 ```
 podman play kube --configmap okd-disconnected-configmap.yml disconnected-pod.yml
