@@ -117,7 +117,6 @@ These images are using `quay.io` and use `127.0.0.1` as address. Instead we want
 sed -i 's;quay.io/edge-infrastructure;registry.vrutkovs.eu/assisted;g' disconnected-pod.yml
 sed -i 's;quay.io/centos7;registry.vrutkovs.eu/assisted;g' disconnected-pod.yml
 sed -i 's;127.0.0.1:8;assisted.vrutkovs.eu:8;g' disconnected-okd-configmap.yml
-sed -i 's;127.0.0.1:8090;assisted.vrutkovs.eu:8090;g' disconnected-okd-configmap.yml
 sed -i 's;https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/36.20220716.3.1/x86_64;http://assisted.vrutkovs.eu:3000;g' disconnected-okd-configmap.yml
 sed -i 's;quay.io/openshift;registry.vrutkovs.eu/okd/okd;g' disconnected-okd-configmap.yml
 sed -i 's;quay.io/vrutkovs/okd-rpms;registry.vrutkovs.eu/assisted/okd-rpms;g' disconnected-okd-configmap.yml
