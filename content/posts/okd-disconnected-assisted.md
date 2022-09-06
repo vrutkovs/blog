@@ -132,7 +132,7 @@ EOF
 
 Once config and pod definition are updated for disconnected use, lets use podman to start Assisted Installer:
 ```
-podman play kube --configmap okd-disconnected-configmap.yml disconnected-pod.yml
+podman play kube --configmap disconnected-okd-configmap.yml disconnected-pod.yml
 ```
 
 ## OKD installation
