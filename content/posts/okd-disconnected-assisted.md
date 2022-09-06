@@ -45,52 +45,71 @@ podman run -d \
 podman login registry.vrutkovs.eu
 ```
 
-## Mirror OKD release to the local registry
-
-```
-wget https://mirror.openshift.com/pub/openshift-v4/clients/ocp/stable-4.11/openshift-client-linux-4.11.1.tar.gz -O - | sudo tar -xz -C /usr/local/bin
-oc adm release mirror quay.io/openshift/okd:4.11.0-0.okd-2022-07-29-154152 --to registry.vrutkovs.eu/okd-content --to-release-image=registry.vrutkovs.eu/okd:4.11.0-0.okd-2022-07-29-154152
-```
-Once mirroring is complete it would print the suggested addition to install-config:
-```
-imageContentSources:
-- mirrors:
-  - registry.vrutkovs.eu/okd-content
-  - registry.vrutkovs.eu/okd
-  source: quay.io/openshift/okd
-- mirrors:
-  - registry.vrutkovs.eu/okd-content
-  - registry.vrutkovs.eu/okd
-  source: quay.io/openshift/okd-content
-```
-
-## Mirror assisted images
-
-```
-dnf install -y skopeo
-skopeo copy docker://quay.io/vrutkovs/okd-rpms:4.11 docker://registry.vrutkovs.eu/assisted/okd-rpms:4.11
-skopeo copy docker://quay.io/centos7/postgresql-12-centos7:latest docker://registry.vrutkovs.eu/assisted/postgresql-12-centos7:latest
-skopeo copy docker://quay.io/edge-infrastructure/assisted-installer-ui:latest docker://registry.vrutkovs.eu/assisted/assisted-installer-ui:latest
-skopeo copy docker://quay.io/edge-infrastructure/assisted-image-service:latest docker://registry.vrutkovs.eu/assisted/assisted-image-service:latest
-skopeo copy docker://quay.io/edge-infrastructure/assisted-service:latest docker://registry.vrutkovs.eu/assisted/assisted-service:latest
-skopeo copy docker://quay.io/edge-infrastructure/assisted-installer-agent:latest docker://registry.vrutkovs.eu/assisted/assisted-installer-agent:latest
-skopeo copy docker://quay.io/edge-infrastructure/assisted-installer:latest docker://registry.vrutkovs.eu/assisted/assisted-installer:latest
-skopeo copy docker://quay.io/edge-infrastructure/assisted-installer-controller:latest docker://registry.vrutkovs.eu/assisted/assisted-installer-controller:latest
-skopeo copy docker://quay.io/karmab/aicli docker://registry.vrutkovs.eu/assisted/aicli:latest
-```
-
 ## Host local source of Fedora CoreOS images
 
 ```
 mkdir /srv/registry/fcos
 cd /srv/registry/fcos
-wget https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/36.20220716.3.1/x86_64/fedora-coreos-36.20220716.3.1-live.x86_64.iso
+export FCOS_VERSION="36.20220716.3.1"
+wget https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/${FCOS_VERSION}/x86_64/fedora-coreos-${FCOS_VERSION}-live.x86_64.iso
 podman run -d \
   --name image-storage \
   -v /srv/registry/fcos:/data:z \
   -w /data \
   -p 3000:3000 \
   docker.io/python:latest python3 -m http.server 3000
+```
+
+## Mirror OKD and additional images to the local registry
+
+In order to run Assisted Installer we're going to need to mirror some more additional images. `oc-mirror` is a great tool to keep those updated:
+```
+wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable-4.11/openshift-client-linux-4.11.1.tar.gz -O - | sudo tar -xz -C /usr/local/bin
+wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable-4.11/oc-mirror.tar.gz -O - | sudo tar -xz -C /usr/local/bin
+chmod a+x /usr/local/bin/oc-mirror
+
+export OKD_VERSION="4.11.0-0.okd-2022-08-20-022919"
+
+cat > /tmp/oc-mirror-config <<EOF
+apiVersion: mirror.openshift.io/v1alpha1
+kind: ImageSetConfiguration
+mirror:
+  platform:
+    channels:
+      - name: stable-4
+        type: okd
+        minVersion: "${OKD_VERSION}"
+        maxVersion: "${OKD_VERSION}"
+  additionalImages:
+    - name: quay.io/vrutkovs/okd-rpms:4.11
+    - name: quay.io/centos7/postgresql-12-centos7:latest
+    - name: quay.io/edge-infrastructure/assisted-service:latest
+    - name: quay.io/edge-infrastructure/assisted-image-service:latest
+    - name: quay.io/edge-infrastructure/assisted-installer:latest
+    - name: quay.io/edge-infrastructure/assisted-installer-ui:latest
+    - name: quay.io/edge-infrastructure/assisted-installer-agent:latest
+    - name: quay.io/edge-infrastructure/assisted-installer-controller:latest
+    - name: quay.io/karmab/aicli
+EOF
+```
+
+`oc-mirror` can also make a custom mirrored OperatorHub:
+```
+cat >> /tmp/oc-mirror-config << EOF
+operators:
+  - catalog: registry.access.redhat.com/redhat/community-operator-index:v4.11
+    headsOnly: false
+    packages:
+      - name: argocd-operator
+      - name: grafana-operator
+EOF
+```
+
+See other oc-mirror features at the [docs]](https://docs.okd.io/latest/installing/disconnected_install/installing-mirroring-disconnected.html)
+
+Lets mirror this to our registry:
+```
+oc mirror --config /tmp/oc-mirror-config docker://registry.vrutkovs.eu
 ```
 
 ## Pull secret
@@ -114,19 +133,23 @@ wget -O disconnected-pod.yml https://github.com/openshift/assisted-service/raw/m
 These images are using `quay.io` and use `127.0.0.1` as address. Instead we want to use the local mirror and `assisted.vrutkovs.eu`:
 
 ```
-sed -i 's;quay.io/edge-infrastructure;registry.vrutkovs.eu/assisted;g' disconnected-pod.yml
-sed -i 's;quay.io/centos7;registry.vrutkovs.eu/assisted;g' disconnected-pod.yml
+sed -i 's;quay.io/;registry.vrutkovs.eu/;g' disconnected-pod.yml
 sed -i 's;127.0.0.1:8;assisted.vrutkovs.eu:8;g' disconnected-okd-configmap.yml
-sed -i 's;https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/36.20220716.3.1/x86_64;http://assisted.vrutkovs.eu:3000;g' disconnected-okd-configmap.yml
-sed -i 's;quay.io/openshift;registry.vrutkovs.eu;g' disconnected-okd-configmap.yml
-sed -i 's;quay.io/vrutkovs/okd-rpms;registry.vrutkovs.eu/assisted/okd-rpms;g' disconnected-okd-configmap.yml
+sed -i '/RELEASE_IMAGES/d' disconnected-okd-configmap.yml
+sed -i '/OS_IMAGES/d' disconnected-okd-configmap.yml
+sed -i '/OKD_RPMS_IMAGE/d' disconnected-okd-configmap.yml
+echo >> disconnected-okd-configmap.yml << EOF
+  OS_IMAGES: '[{"openshift_version":"4.11","cpu_architecture":"x86_64","url":"http://assisted.vrutkovs.eu:3000/fedora-coreos-${FCOS_VERSION}-live.x86_64.iso","version":"${FCOS_VERSION}"}]'
+  RELEASE_IMAGES: '[{"openshift_version":"4.11","cpu_architecture":"x86_64","cpu_architectures":["x86_64"],"url":"registry.vrutkovs.eu/openshift/release-images:${OKD_VERSION}-x86_64","version":"${OKD_VERSION","default":true}]'
+  OKD_RPMS_IMAGE: registry.vrutkovs.eu/vrutkovs/okd-rpms:4.11
+EOF
 ```
 
 The cluster's mirroring settings prevent mirroring by tags, so we need custom setting to use Assisted Installer controller image via digest
 
 ```
 cat >> disconnected-okd-configmap.yml << EOF
-  CONTROLLER_IMAGE: $(skopeo inspect docker://registry.vrutkovs.eu/assisted/assisted-installer-controller:latest --format "{{.Name}}@{{.Digest}}")
+  CONTROLLER_IMAGE: $(skopeo inspect docker://registry.vrutkovs.eu/edge-infrastructure/assisted-installer-controller:latest --format "{{.Name}}@{{.Digest}}")
 EOF
 ```
 
@@ -148,7 +171,7 @@ On "Operators" screen we'll just click "Next" - no operators were mirrored:
 At "Host discovery" stage usually, we'd generate the ISO and boot from it, but it would attempt to pull images from `quay.io`, so first, we need to patch these with mirroring configuration via Ignition override. This assisted installer option
 is available via API only, so we'll use [aicli](https://github.com/karmab/aicli) to interact with it:
 ```
-alias aicli='podman run --net host -it --rm -e AI_URL=assisted.vrutkovs.eu:8080 -v /tmp:/workdir registry.vrutkovs.eu/assisted/aicli:latest'
+alias aicli='podman run --net host -it --rm -e AI_URL=assisted.vrutkovs.eu:8080 -v /tmp:/workdir registry.vrutkovs.eu/karmab/aicli:latest'
 ```
 
 Before discovery ISO can be booted it needs to be amended with mirroring configuration:
@@ -158,13 +181,16 @@ registry_url: registry.vrutkovs.eu:443
 installconfig:
   imageContentSources:
   - mirrors:
-    - registry.vrutkovs.eu/assisted
+    - registry.vrutkovs.eu/centos7
+    source: quay.io/centos7
+  - mirrors:
+    - registry.vrutkovs.eu/edge-infrastructure
     source: quay.io/edge-infrastructure
   - mirrors:
-    - registry.vrutkovs.eu/okd
+    - registry.vrutkovs.eu/openshift/release-images
     source: quay.io/openshift/okd
   - mirrors:
-    - registry.vrutkovs.eu/okd-content
+    - registry.vrutkovs.eu/openshift/okd-content
     source: quay.io/openshift/okd-content
 EOF
 ```
