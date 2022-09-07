@@ -8,7 +8,17 @@ comments:
   id: none
 ---
 
-# Prepare certificates for registry
+## Architecture
+
+Setting up OKD may become a challenge when you don't have experience - this is where Assisted Installer may be helpful. In restricted networking environments setting up a mirror registry and configuring installer to use it instead of quay.io requires few additional steps.
+
+This tutorial would cover the process of mirroring OKD release and steps to install disconnected Assisted Installer. On a helper node we'll run container registry, copy OKD release images there and run Assisted Installer - a service which can guide us through creating a cluster which can only access the internal registry.
+
+Note, that in my setup helper node with the registry has access both to quay.io and internal network (so called, "partially disconnected" installation). If your installation environment is fully air gapped, check out [oc-mirror docs](https://docs.okd.io/latest/installing/disconnected_install/installing-mirroring-disconnected.html) for mirror configuration options.
+
+Our first step would be setting up container registry on a helper node.
+
+## Prepare certificates for registry
 
 Use `openssl` to generate certificates or, simply, use LetsEncrypt wildcard cert:
 ```
