@@ -60,7 +60,7 @@ podman login registry.vrutkovs.eu
 ```
 mkdir /srv/registry/fcos
 cd /srv/registry/fcos
-export FCOS_VERSION="36.20220716.3.1"
+export FCOS_VERSION="36.20220806.3.0"
 wget https://builds.coreos.fedoraproject.org/prod/streams/stable/builds/${FCOS_VERSION}/x86_64/fedora-coreos-${FCOS_VERSION}-live.x86_64.iso
 podman run -d \
   --name image-storage \
