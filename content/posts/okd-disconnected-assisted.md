@@ -124,7 +124,7 @@ operators:
 EOF
 ```
 
-See other oc-mirror features at the [docs]](https://docs.okd.io/latest/installing/disconnected_install/installing-mirroring-disconnected.html)
+See other oc-mirror features at the [docs](https://docs.okd.io/latest/installing/disconnected_install/installing-mirroring-disconnected.html)
 
 Lets mirror this to our registry:
 ```
