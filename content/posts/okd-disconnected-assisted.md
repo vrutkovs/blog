@@ -141,7 +141,7 @@ sed -i '/OS_IMAGES/d' disconnected-okd-configmap.yml
 sed -i '/OKD_RPMS_IMAGE/d' disconnected-okd-configmap.yml
 cat >> disconnected-okd-configmap.yml << EOF
   OS_IMAGES: '[{"openshift_version":"4.11","cpu_architecture":"x86_64","url":"http://assisted.vrutkovs.eu:3000/fedora-coreos-${FCOS_VERSION}-live.x86_64.iso","version":"${FCOS_VERSION}"}]'
-  RELEASE_IMAGES: '[{"openshift_version":"4.11","cpu_architecture":"x86_64","cpu_architectures":["x86_64"],"url":"registry.vrutkovs.eu/openshift/release-images:${OKD_VERSION}-x86_64","version":"${OKD_VERSION","default":true}]'
+  RELEASE_IMAGES: '[{"openshift_version":"4.11","cpu_architecture":"x86_64","cpu_architectures":["x86_64"],"url":"registry.vrutkovs.eu/openshift/release-images:${OKD_VERSION}-x86_64","version":"${OKD_VERSION}","default":true}]'
   OKD_RPMS_IMAGE: registry.vrutkovs.eu/vrutkovs/okd-rpms:4.11
 EOF
 ```
