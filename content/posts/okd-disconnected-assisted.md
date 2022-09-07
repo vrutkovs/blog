@@ -82,7 +82,7 @@ cat ~/.docker/config.json
 ## Mirror OKD and additional images to the local registry
 
 In order to run Assisted Installer we're going to need to mirror some more additional images. `oc-mirror` is a great tool to keep those updated:
-```
+```yaml
 wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable-4.11/openshift-client-linux-4.11.1.tar.gz -O - | sudo tar -xz -C /usr/local/bin
 wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable-4.11/oc-mirror.tar.gz -O - | sudo tar -xz -C /usr/local/bin
 chmod a+x /usr/local/bin/oc-mirror
@@ -113,7 +113,7 @@ EOF
 ```
 
 `oc-mirror` can also make a custom mirrored OperatorHub:
-```
+```yaml
 cat >> /tmp/oc-mirror-config << EOF
   operators:
     - catalog: registry.access.redhat.com/redhat/community-operator-index:v4.11
@@ -143,7 +143,7 @@ wget -O disconnected-pod.yml https://github.com/openshift/assisted-service/raw/m
 
 These images are using `quay.io` and use `127.0.0.1` as address. Instead we want to use the local mirror and `assisted.vrutkovs.eu`:
 
-```
+```yaml
 sed -i 's;quay.io/;registry.vrutkovs.eu/;g' disconnected-pod.yml
 sed -i 's;127.0.0.1:8;assisted.vrutkovs.eu:8;g' disconnected-okd-configmap.yml
 sed -i '/RELEASE_IMAGES/d' disconnected-okd-configmap.yml
@@ -175,7 +175,7 @@ EOF
 
 The cluster's mirroring settings prevent mirroring by tags, so we need custom setting to use Assisted Installer controller image via digest
 
-```
+```yaml
 cat >> disconnected-okd-configmap.yml << EOF
   CONTROLLER_IMAGE: $(skopeo inspect docker://registry.vrutkovs.eu/edge-infrastructure/assisted-installer-controller:latest --format "{{.Name}}@{{.Digest}}")
 EOF
@@ -203,7 +203,7 @@ alias aicli='podman run --net host -it --rm -e AI_URL=assisted.vrutkovs.eu:8080 
 ```
 
 Before discovery ISO can be booted it needs to be amended with mirroring configuration:
-```
+```yaml
 cat > /tmp/install-override<<EOF
 registry_url: registry.vrutkovs.eu:443
 installconfig:
@@ -224,7 +224,7 @@ EOF
 ```
 
 The installer also needs an SSH key to be able to ssh on the nodes:
-```
+```yaml
 cat >>/tmp/install-override<<EOF
 ssh_public_key: |
   $(cat ~/.ssh/id_rsa.pub)
@@ -266,7 +266,7 @@ Now the node would run Machine Config Server so that other masters would be able
 ![Install step 5 out of 10](../images/okd-disconnected-assisted-08.png)
 
 The host would remain in "Rebooting" state until the assisted-installer controller would not be started as a pod and report the installation progress back to the
-![Install step 5 out of 10](../images/okd-disconnected-assisted-09.png)
+![Install step 8 out of 10](../images/okd-disconnected-assisted-09.png)
 
 Now the host is installed and cluster installations proceeds. Once the ingress and console are running Assisted Installer UI would display the kubeadmin password and a link to the cluster console.
 ![Install step 9 out of 10](../images/okd-disconnected-assisted-10.png)
