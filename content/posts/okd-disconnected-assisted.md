@@ -71,7 +71,7 @@ chmod a+x /usr/local/bin/oc-mirror
 export OKD_VERSION="4.11.0-0.okd-2022-08-20-022919"
 
 cat > /tmp/oc-mirror-config <<EOF
-apiVersion: mirror.openshift.io/v1alpha1
+apiVersion: mirror.openshift.io/v1alpha2
 kind: ImageSetConfiguration
 mirror:
   platform:
