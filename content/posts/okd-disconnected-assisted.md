@@ -60,6 +60,15 @@ podman run -d \
   docker.io/python:latest python3 -m http.server 3000
 ```
 
+## Pull secret
+
+Our registry requires authentication, so we'll need to re-login to get a pullsecret:
+```
+mkdir ~/.docker/config.json
+podman login registry.vrutkovs.eu --authfile=~/.docker/config.json
+cat ~/.docker/config.json
+```
+
 ## Mirror OKD and additional images to the local registry
 
 In order to run Assisted Installer we're going to need to mirror some more additional images. `oc-mirror` is a great tool to keep those updated:
@@ -110,14 +119,6 @@ See other oc-mirror features at the [docs]](https://docs.okd.io/latest/installin
 Lets mirror this to our registry:
 ```
 oc mirror --config /tmp/oc-mirror-config docker://registry.vrutkovs.eu
-```
-
-## Pull secret
-
-Our registry requires authentication, so we'll need to re-login to get a pullsecret:
-```
-podman login registry.vrutkovs.eu --authfile=/tmp/pullsecret.json
-cat /tmp/pullsecret.json
 ```
 
 ## Run Assisted Installer in podman
