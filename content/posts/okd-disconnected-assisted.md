@@ -23,8 +23,8 @@ Our first step would be setting up container registry on a helper node.
 Use `openssl` to generate certificates or, simply, use LetsEncrypt wildcard cert:
 ```
 mkdir /srv/registry/certs -p
-cp -rvf /etc/letsencrypt/live/vrutkovs.eu/fullchain.pem /srv/registry/certs/domain.crt
-cp -rvf /etc/letsencrypt/live/vrutkovs.eu/privkey.pem /srv/registry/certs/domain.key
+cp -vf /etc/letsencrypt/live/vrutkovs.eu/fullchain.pem /srv/registry/certs/domain.crt
+cp -vf /etc/letsencrypt/live/vrutkovs.eu/privkey.pem /srv/registry/certs/domain.key
 ```
 
 ## Generate authentication for local registry
@@ -74,7 +74,7 @@ podman run -d \
 
 Our registry requires authentication, so we'll need to re-login to get a pullsecret:
 ```
-mkdir ~/.docker/config.json
+mkdir ~/.docker
 podman login registry.vrutkovs.eu --authfile=~/.docker/config.json
 cat ~/.docker/config.json
 ```
@@ -115,12 +115,12 @@ EOF
 `oc-mirror` can also make a custom mirrored OperatorHub:
 ```
 cat >> /tmp/oc-mirror-config << EOF
-operators:
-  - catalog: registry.access.redhat.com/redhat/community-operator-index:v4.11
-    headsOnly: false
-    packages:
-      - name: argocd-operator
-      - name: grafana-operator
+  operators:
+    - catalog: registry.access.redhat.com/redhat/community-operator-index:v4.11
+      headsOnly: false
+      packages:
+        - name: argocd-operator
+        - name: grafana-operator
 EOF
 ```
 
@@ -222,13 +222,7 @@ installconfig:
     source: quay.io/openshift/okd-content
 EOF
 ```
-OperatorHub images and samples were not mirrored so we'll a baseline capability set only:
-```
-cat >>/tmp/install-override<<EOF
-  capabilities:
-    baselineCapabilitySet: None
-EOF
-```
+
 The installer also needs an SSH key to be able to ssh on the nodes:
 ```
 cat >>/tmp/install-override<<EOF
