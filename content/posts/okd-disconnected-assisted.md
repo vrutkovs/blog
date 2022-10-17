@@ -1,7 +1,7 @@
 ---
 title: "Installing OKD using Assisted Installer in a disconnected environment"
 date: 2022-09-05T10:35:00+02:00
-draft: true
+draft: false
 comments:
   host: social.vrutkovs.eu
   username: vadim
