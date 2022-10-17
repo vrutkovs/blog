@@ -87,7 +87,7 @@ wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable-4.1
 wget https://mirror.openshift.com/pub/openshift-v4/x86_64/clients/ocp/stable-4.11/oc-mirror.tar.gz -O - | sudo tar -xz -C /usr/local/bin
 chmod a+x /usr/local/bin/oc-mirror
 
-export OKD_VERSION="4.11.0-0.okd-2022-08-20-022919"
+export OKD_VERSION="4.11.0-0.okd-2022-10-15-073651"
 
 cat > /tmp/oc-mirror-config <<EOF
 apiVersion: mirror.openshift.io/v1alpha2
