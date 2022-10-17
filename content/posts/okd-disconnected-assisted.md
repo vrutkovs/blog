@@ -5,7 +5,7 @@ draft: false
 comments:
   host: social.vrutkovs.eu
   username: vadim
-  id: none
+  id: AOecTLKBFyKU9lkcV6
 ---
 
 ## Architecture
