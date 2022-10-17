@@ -190,11 +190,11 @@ podman play kube --configmap disconnected-okd-configmap.yml disconnected-pod.yml
 
 Now we can start the installation, let's click "Create New Cluster" at `assisted.vrutkovs.eu:8080`:
 
-![Cluster details](../images/okd-disconnected-assisted-01.png)
+![Cluster details](../../images/okd-disconnected-assisted-01.png)
 
 On "Operators" screen we'll just click "Next" - no operators were mirrored:
 
-![Operators](../images/okd-disconnected-assisted-02.png)
+![Operators](../../images/okd-disconnected-assisted-02.png)
 
 At "Host discovery" stage usually, we'd generate the ISO and boot from it, but it would attempt to pull images from `quay.io`, so first, we need to patch these with mirroring configuration via Ignition override. This assisted installer option
 is available via API only, so we'll use [aicli](https://github.com/karmab/aicli) to interact with it:
@@ -239,36 +239,36 @@ aicli update infraenv disconnected --paramfile /workdir/install-override
 where `disconnected` is the cluster name.
 
 Click 'Add Host' to configure discovery ISO (ssh key is already filled in by `aicli`):
-![Add Host dialog](../images/okd-disconnected-assisted-03.png)
+![Add Host dialog](../../images/okd-disconnected-assisted-03.png)
 
 "Generate Discovery ISO" button will show a link and suggested command to download discovery ISO:
-![Discover ISO link](../images/okd-disconnected-assisted-04.png)
+![Discover ISO link](../../images/okd-disconnected-assisted-04.png)
 
 Alternatively, you can use `aicli info iso disconnected` to get ISO URL. `aicli` can work with the API the same way as UI (see [docs](https://aicli.readthedocs.io/en/latest)), but in this tutorial, I'll be using UI for the sake of demonstration.
 
 Now we can boot hosts with discovery ISO.
 
 Wait for all nodes to register themselves:
-![The host has registered itself](../images/okd-disconnected-assisted-05.png)
+![The host has registered itself](../../images/okd-disconnected-assisted-05.png)
 and click "Next"
 
 This is a bare-metal installation, so on "Storage" screen we proceed by clicking "Next".
 
 Network details are autodetected from DHCP:
-![Installation details](../images/okd-disconnected-assisted-06.png)
+![Installation details](../../images/okd-disconnected-assisted-06.png)
 
 On the "Review and create" screen lets double-check all parameters:
-![Installation details](../images/okd-disconnected-assisted-07.png)
+![Installation details](../../images/okd-disconnected-assisted-07.png)
 and start the installation.
 
 After Assisted Installer verifies that nodes can pull all necessary images it would run the installer, generate `bootstrap.ign`, and pass it to the bootstrap node. The node would apply Ignition without reboot, run `bootkube.service`, and other bootstrap tasks.
 Now the node would run Machine Config Server so that other masters would be able to fetch master Ignition (if necessary), convert bootstrap node into master, and reboot.
-![Install step 5 out of 10](../images/okd-disconnected-assisted-08.png)
+![Install step 5 out of 10](../../images/okd-disconnected-assisted-08.png)
 
 The host would remain in "Rebooting" state until the assisted-installer controller would not be started as a pod and report the installation progress back to the
-![Install step 8 out of 10](../images/okd-disconnected-assisted-09.png)
+![Install step 8 out of 10](../../images/okd-disconnected-assisted-09.png)
 
 Now the host is installed and cluster installations proceeds. Once the ingress and console are running Assisted Installer UI would display the kubeadmin password and a link to the cluster console.
-![Install step 9 out of 10](../images/okd-disconnected-assisted-10.png)
+![Install step 9 out of 10](../../images/okd-disconnected-assisted-10.png)
 
 Once all operators have reported success the cluster installation is complete, and voila.
