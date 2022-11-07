@@ -57,6 +57,7 @@ pygmentsCodeFencesGuessSyntax = true
     icon = "fa fa-mastodon"
     weight = 4
     url = "https://social.vrutkovs.eu/@vadim"
+    rel = "me"
 
 # Menu links
 [[menu.main]]
