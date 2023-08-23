@@ -225,7 +225,7 @@ installconfig:
     - registry.vrutkovs.eu/openshift/release-images
     source: quay.io/openshift/okd
   - mirrors:
-    - registry.vrutkovs.eu/openshift/okd-content
+    - registry.vrutkovs.eu/openshift/release
     source: quay.io/openshift/okd-content
 EOF
 ```
