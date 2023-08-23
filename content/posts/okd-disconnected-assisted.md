@@ -18,6 +18,13 @@ Note, that in my setup helper node with the registry has access both to quay.io 
 
 Our first step would be setting up container registry on a helper node.
 
+## DNS names
+
+The following DNS records will be used in this post:
+* `registry.vrutkovs.eu` - points to helper VM where disconnected registry mirroring OKD content is situated
+* `assisted.vrutkovs.eu` - points to helper VM where Assisted Service will be running
+* `api.disconnected.vrutkovs.eu`, `api-int.disconnected.vrutkovs.eu`, `*.apps.disconnected.vrutkovs.eu` - API, internal API and router records pointing to a machine which will be used as single node OKD cluster
+
 ## Prepare certificates for registry
 
 Use `openssl` to generate certificates or, simply, use LetsEncrypt wildcard cert:
