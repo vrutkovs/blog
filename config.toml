@@ -10,6 +10,9 @@ pygmentsStyle = "b2"
 pygmentsCodeFences = true
 pygmentsCodeFencesGuessSyntax = true
 
+enableRobotsTXT = true
+
+
 [params]
   author = "Vadim Rutkovsky"
   info = "Senior rubber duck collector"
