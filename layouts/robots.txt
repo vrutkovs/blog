@@ -1,0 +1,4 @@
+User-agent: ChatGPT-User
+Disallow:
+User-agent: Google-Extended
+Disallow: /
