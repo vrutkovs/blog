@@ -1,10 +1,11 @@
 baseurl = "https://vrutkovs.eu/"
 title = "Vadim Rutkovsky"
-theme = "github.com/luizdepra/hugo-coder"
+theme = "hugo-coder"
 languageCode = "en"
 defaultContentLanguage = "en"
 
-paginate = 20
+[pagination]
+pagerSize = 20
 
 pygmentsStyle = "b2"
 pygmentsCodeFences = true
@@ -14,71 +15,64 @@ enableRobotsTXT = true
 
 
 [params]
-  author = "Vadim Rutkovsky"
-  info = "Senior rubber duck collector"
-  description = "Vadim Rutkovsky's personal site"
-  keywords = "blog,developer,personal"
-  avatarUrl = "images/avatar.jpg"
+author = "Vadim Rutkovsky"
+info = "Senior rubber duck collector"
+description = "Vadim Rutkovsky's personal site"
+keywords = "blog,developer,personal"
+avatarUrl = "images/avatar.jpg"
 
-  favicon_32 = "/img/favicon-32x32.png"
-  favicon_16 = "/img/favicon-16x16.png"
+favicon_32 = "/img/favicon-32x32.png"
+favicon_16 = "/img/favicon-16x16.png"
 
-  hideCredits = true
-  hideCopyright = true
+hideCredits = true
+hideCopyright = true
 
-  rtl = false
+rtl = false
 
-  math = false
+math = false
 
-  customCSS = [
-      "css/extra-style.css"
-  ]
+customCSS = ["css/extra-style.css"]
 
-  footerContent = '<a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/3.0/80x15.png" /></a>&nbsp;<a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.'
+footerContent = '<a rel="license" href="http://creativecommons.org/licenses/by/3.0/"><img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by/3.0/80x15.png" /></a>&nbsp;<a rel="license" href="http://creativecommons.org/licenses/by/3.0/">Creative Commons Attribution 3.0 Unported License</a>.'
 
-  hideColorSchemeToggle = true
-  commit = "https://github.com/vrutkovs/blog/tree/"
+hideColorSchemeToggle = true
+commit = "https://github.com/vrutkovs/blog/tree/"
 
 # Social links
 [[params.social]]
-    name = "Github"
-    icon = "fa fa-github"
-    weight = 1
-    url = "https://github.com/vrutkovs/"
+name = "Github"
+icon = "fa-brands fa-github fa-2x"
+weight = 1
+url = "https://github.com/vrutkovs/"
 [[params.social]]
-    name = "Twitter"
-    icon = "fa fa-twitter"
-    weight = 3
-    url = "https://twitter.com/vrutkovs/"
+name = "Email"
+icon = "fa fa-envelope fa-2x"
+weight = 4
+url = "mailto:vadim@vrutkovs.eu"
 [[params.social]]
-    name = "Email"
-    icon = "fa fa-envelope"
-    weight = 4
-    url = "mailto:vadim@vrutkovs.eu"
-[[params.social]]
-    name = "ActivityPub"
-    icon = "fa fa-mastodon"
-    weight = 4
-    url = "https://m.vrutkovs.eu/@vadim"
-    rel = "me"
+name = "ActivityPub"
+icon = "fa-brands fa-mastodon fa-2x"
+weight = 4
+url = "https://m.vrutkovs.eu/@vadim"
+rel = "me"
 
 # Menu links
 [[menu.main]]
-    name = "Slides"
-    weight = 1
-    url  = "/slides/"
+name = "Slides"
+weight = 1
+url = "/slides/"
 
 [[menu.main]]
-    name = "Posts"
-    weight = 2
-    url  = "/posts/"
+name = "Posts"
+weight = 2
+url = "/posts/"
 
 [module]
-    [[module.imports]]
-        path = "github.com/luizdepra/hugo-coder"
-    [[module.imports]]
-        path = "github.com/martignoni/hugo-notice"
+[[module.imports]]
+path = "hugo-coder"
+[[module.imports]]
+path = "hugo-notice"
 
 [outputs]
-  home = ["html", "rss"]
-  page = ["html"]
+home = ["html", "rss"]
+page = ["html"]
