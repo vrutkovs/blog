@@ -13,56 +13,99 @@
     };
   };
   outputs = { self, nixpkgs, utils, hugo-coder, hugo-notice, ... }:
-  utils.lib.eachDefaultSystem
-    (system:
     let
-        pkgs = import nixpkgs {
-        inherit system;
-        };
-    in
-    {
-        packages.hugo-blog = pkgs.stdenv.mkDerivation rec {
-            name = "hugo-blog";
-            src = self;
-            configurePhase = ''
-                mkdir -p "themes/hugo-coder"
-                cp -rvf ${hugo-coder}/* "themes/hugo-coder"
-                mkdir -p "themes/hugo-notice"
-                cp -rvf ${hugo-notice}/* "themes/hugo-notice"
+        supportedSystems = [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin" ];
+        forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
+        nixpkgsFor = forAllSystems (system: import nixpkgs { inherit system; });
+    in {
+        packages = forAllSystems (system:
+        let
+            pkgs = nixpkgsFor.${system};
+            nginxPort = "8000";
+            nginxConf = pkgs.writeText "nginx.conf" ''
+                user nobody nobody;
+                daemon off;
+                error_log /dev/stdout info;
+                pid /dev/null;
+                events {}
+                http {
+                    access_log /dev/stdout;
+                    server {
+                        listen ${nginxPort};
+                        index index.html;
+                        location / {
+                            include ${pkgs.nginx}/conf/mime.types;
+                            root ${self.packages.${system}.default};
+                        }
+                    }
+                }
             '';
-            buildPhase = ''
-                ${pkgs.hugo}/bin/hugo --minify
-            '';
-            installPhase = "cp -r public $out";
-        };
-        packages.default = self.packages.${system}.hugo-blog;
-
-        apps = rec {
-        build = utils.lib.mkApp { drv = pkgs.hugo; };
-        serve = utils.lib.mkApp {
-            drv = pkgs.writeShellScriptBin "hugo-serve" ''
-                mkdir -p themes
-                ln -sn "${hugo-coder}" "themes/hugo-coder"
-                ln -sn "${hugo-notice}" "themes/hugo-notice"
-                ${pkgs.hugo}/bin/hugo serve
-            '';
-        };
-        newpost = utils.lib.mkApp {
-            drv = pkgs.writeShellScriptBin "new-post" ''
-                ${pkgs.hugo}/bin/hugo new content posts/"$1".md
-            '';
-        };
-        default = serve;
-        };
-
-        devShells.default =
-        pkgs.mkShell {
+        in
+        {
+            default = pkgs.stdenv.mkDerivation {
+                name = "hugo-blog";
+                src = self;
+                configurePhase = ''
+                    mkdir -p "themes/hugo-coder"
+                    cp -rvf ${hugo-coder}/* "themes/hugo-coder"
+                    mkdir -p "themes/hugo-notice"
+                    cp -rvf ${hugo-notice}/* "themes/hugo-notice"
+                '';
+                buildPhase = ''
+                    ${pkgs.hugo}/bin/hugo --minify
+                '';
+                installPhase = "cp -r public $out";
+            };
+            containerImage = pkgs.dockerTools.buildLayeredImage {
+                name = "vrutkovs/blog";
+                contents = [ pkgs.fakeNss pkgs.bash pkgs.coreutils pkgs.nginx "${self.packages.${system}.default}" ];
+                extraCommands = ''
+                  mkdir -p tmp/nginx_client_body
+                  mkdir -p var/log/nginx
+                '';
+                config = {
+                    Cmd = [
+                        "nginx" "-c" "${nginxConf}"
+                    ];
+                    ExposedPorts = {
+                        "${nginxPort}/tcp" = { };
+                    };
+                };
+            };
+        });
+        apps = forAllSystems (system:
+        let
+            pkgs = nixpkgsFor.${system};
+        in
+        {
+            build = utils.lib.mkApp { drv = pkgs.hugo; };
+            default = utils.lib.mkApp {
+                drv = pkgs.writeShellScriptBin "hugo-serve" ''
+                    mkdir -p themes
+                    ln -sn "${hugo-coder}" "themes/hugo-coder"
+                    ln -sn "${hugo-notice}" "themes/hugo-notice"
+                    ${pkgs.hugo}/bin/hugo serve
+                '';
+            };
+            newpost = utils.lib.mkApp {
+                drv = pkgs.writeShellScriptBin "new-post" ''
+                    ${pkgs.hugo}/bin/hugo new content posts/"$1".md
+                '';
+            };
+        });
+        devShells = forAllSystems (system:
+        let
+            pkgs = nixpkgsFor.${system};
+        in
+        {
+          default = pkgs.mkShell {
             buildInputs = [ pkgs.hugo ];
             shellHook = ''
                 mkdir -p themes
                 ln -sn "${hugo-coder}" "themes/hugo-coder"
                 ln -sn "${hugo-notice}" "themes/hugo-notice"
             '';
-        };
-    });
+          };
+        });
+    };
 }
