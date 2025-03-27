@@ -3,9 +3,9 @@ title: "Home infra - beyond k8s"
 date: 2025-02-20T13:01:00+02:00
 draft: false
 comments:
-  host: social.vrutkovs.eu
+  host: m.vrutkovs.eu
   username: vadim
-  id: none
+  id: 114233623672937261
 ---
 
 Running a home server recently has become less of a nerd hobby and more of a necessity to preserve privacy and protect from enshittification.
