@@ -38,18 +38,18 @@
                                 );
                             });
                             mastodonComment = `<div class="mastodon-comment">
-                     <div class="avatar">
-                       <img src="${escapeHtml(reply.account.avatar_static)}" height=60 width=60 alt="">
-                     </div>
                      <div class="content">
                        <div class="author">
-                         <a href="${reply.account.url}" rel="nofollow">
-                           <span>${reply.account.display_name}</span>
-                           <span class="disabled">${escapeHtml(reply.account.acct)}</span>
-                         </a>
-                         <a class="date" href="${reply.uri}" rel="nofollow">
-                           ${reply.created_at.substr(0, 10)}
-                         </a>
+                        <span class="avatar">
+                          <img src="${escapeHtml(reply.account.avatar_static)}" height=60 width=60 alt="">
+                        </span>
+                        <a href="${reply.account.url}" rel="nofollow">
+                          <span>${reply.account.display_name}</span>
+                          <span class="disabled">${escapeHtml(reply.account.acct)}</span>
+                        </a>
+                        <a class="date" href="${reply.uri}" rel="nofollow">
+                          ${reply.created_at.substr(0, 10)}
+                        </a>
                        </div>
                        <div class="mastodon-comment-content">${reply.content}</div>
                      </div>
