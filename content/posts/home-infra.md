@@ -19,11 +19,11 @@ Most common usecase for home server is store data. For that you'll want a lot of
 
 This machine runs CentOS Stream 9 and with [Cockpit]() I can quickly check up on its status and set up Samba shares.
 
-![Cockpit](../../images/home-infra-01.png)
+{{< figure src="../../images/home-infra-01.png" caption="Cockpit" >}}
 
 This machine also runs [Jellyfin]() to stream TV shows or movies. I host several webcams to monitor activity in- and outside of the house, so [Frigate]() is running on this machine.
 
-![Podman containers](../../images/home-infra-02.png)
+{{< figure src="../../images/home-infra-02.png" caption="Podman containers" >}}
 
 Since this machine is distributing sweet-sweet data I assigned it Gumball hostname.
 
@@ -35,7 +35,7 @@ Previously I got burned by some DNF-related problems on CentOS and wanted to mak
 
 So, what could such a machine host? First thing I need to run there is [AdGuard Home](). This service is doing all things DNS - it can cache DNS requests, add custom DNS records and block some ad domains. It also doubles as DHCP server, so I can also apply custom rules to different devices.
 
-![AdGuard Home](../../images/home-infra-03.png)
+{{< figure src="../../images/home-infra-03.png" caption="AdGuard Home" >}}
 
 Another crucial service is [Home Assistant]() which helps with automations around the house. Alongside it runs [Mosquitto]() and [Zigbee2MQTT]() so that Zigbee devices I have installed around the house could be controlled with Home Assistant. Previously mentioned AdGuard custom DNS name allows an app on the phone control it from any part of the house.
 
@@ -45,7 +45,7 @@ Since this machine is small, not very smart and may fall on its head I call it G
 
 Now that we have important bits setup, its time to have a playgroud for experiments. Since my daily job is working with OpenShift clusters I chose k8s as a place to run small services with an option of quickly changing or removing them. In my opinion it leaves much less cruft around and since all k8s are already containerized some service may eventually "upgraded" to persistent (same happened to Frigate and Jellyfin, now hosted on NAS machine). As an OS I picked Fedora CoreOS - the benefits of it were described earlier. As for the distribution I'm running [k3s](), which is - good enough I guess? I don't have enough free hardware to run a full-blown high availability cluster, so its runs on a single node - an ancient by modern standards but still worthy laptop Lenovo X220.
 
-![k3s monitoring](../../images/home-infra-04.png)
+{{< figure src="../../images/home-infra-04.png" caption="k3s monitoring" >}}
 
 Since this machine was initially created for entirely different purpose, its codename is Neptr.
 
@@ -53,12 +53,12 @@ Since this machine was initially created for entirely different purpose, its cod
 
 Managing this zoo of machines may become tricky. There quite a few good established solutions for k8s - namely [ArgoCD]() which uses GitOps approach. This makes k8s cluster self-managed with a git repo - and I'm using private Github repos to store data there. I started writing manifests and charts with an intention to split secrets from pure configuration so that the latter could be properly open sourced. That, however, hasn't happenned yet.
 
-![ArgoCD apps](../../images/home-infra-11.png)
+{{< figure src="../../images/home-infra-11.png" caption="ArgoCD apps" >}}
 
 Alongside Continuous Delivery some actions need to run on other hosts - for that I use Tekton to run
 ansible playbooks. For example, with Ansible Home Assistant configuration is laid on the host and the service is restarted. Similarly, new configuration for Gunter and Gumball is applied by Ansible when a pipeline is triggered by a Github push.
 
-![Ansible via Tekton](../../images/home-infra-06.png)
+{{< figure src="../../images/home-infra-06.png" caption="Ansible via Tekton" >}}
 
 # Overwatch
 
@@ -66,26 +66,26 @@ Maintenance work at home is the worst - you don't paid, there is no reward to ke
 
 Collecting metrics is probably the simplest task, as [Prometheus]() has become an industry standard and most apps already expose metrics in Prometheus format. For OS level metrics multiple exporters can send necessary data. That's what I used, until I needed to collect logs too. Instead of running just another container I figured [Grafana Alloy]() can do both and includes most popular exporters too. This agent how runs on every host and configuration looks much more accessible.
 
-![Grafana Alloy](../../images/home-infra-07.png)
+{{< figure src="../../images/home-infra-07.png" caption="Grafana Alloy" >}}
 
 Previously I was using free [grafana.net]() account to send metrics and logs too - but I quickly hit the free limits. Instead of supporting their excellent work with money I chose to try something else. All metrics are sent to [VictoriaMetrics]() and most important are sent to [grafana.net](). This option allows me to send important metrics (i.e. systemd service) to the cloud where it can send back alerts via extremely useful [Grafana IRM]() app and get notified of failures quicker.
 
-![Grafana IRM](../../images/home-infra-08.png)
+{{< figure src="../../images/home-infra-08.png" caption="Grafana IRM" >}}
 
 The total amount of metrics I collect is too much for standard Prometheus to handle, but VM handles it with ease. These metrics are used for informational graphs via self-hosted Grafana, most interesting is Home Assistant exposed metrics to build complicated graphs.
 
-![VictoriaMetrics](../../images/home-infra-09.png)
+{{< figure src="../../images/home-infra-09.png" caption="VictoriaMetrics" >}}
 
 Similar to metrics, all machines send journald and container logs to [VictoriaLogs](), which is essentially VictoriaMetrics for logs. Its an excellent choice for resource-constrained machines too, as it doesn't require S3 or fast disk unlike most alternatives.
 
-![VictoriaLogs](../../images/home-infra-10.png)
+{{< figure src="../../images/home-infra-10.png" caption="VictoriaLogs" >}}
 
 # Updates
 
 As much as its fun to install new things its tedious to keep them up to date. CentOS has unattended upgrades and FCOS has [zincati](), but it doesn't apply to most software. This is where storing manifests in Github to maintain it better is becoming useful. I'm using [Renovate]() to scan ArgoCD manifests and Ansible configuration for container image references to find installed versions of the
 software. Once a new version comes out and the container image is available, Renovate will create a pull request with a proposed version bump and a changelog.
 
-![renovate](../../images/home-infra-05.png)
+{{< figure src="../../images/home-infra-05.png" caption="renovate" >}}
 
 Once the pull request is merged Tekton pipeline applies it on hosts (or ArgoCD applies it to k8s cluster). Next the monitoring may alert if the update was unsuccessful - my main approach in this case is reverting a commit. It took quite a while to get right but now it works like a charm.
 

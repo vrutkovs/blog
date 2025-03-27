@@ -41,7 +41,7 @@
   {{ if ($.Scratch.Get "caption") }}
     <figcaption>
       <span class="img--caption">
-        Figure {{ $.Page.Scratch.Get "fig" }}. {{ $.Scratch.Get "caption" | markdownify | plainify }}
+        {{ $.Scratch.Get "caption" | markdownify | plainify }}
         {{ if .Get "attr" }}
           [{{- with .Get "attrlink"}}<a href="{{ . }}">{{ end }}{{ .Get "attr" | markdownify }}{{ if .Get "attrlink"}}</a>{{ end -}}]
         {{ end }}
