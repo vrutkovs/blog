@@ -31,7 +31,8 @@ rtl = false
 
 math = false
 
-customCSS = ["css/extra-style.css"]
+customCSS = ["css/extra-style.css", "css/lightbox.css"]
+customJS = ["js/lightbox.js", "js/jquery-3.4.1.min.js"]
 
 hideColorSchemeToggle = true
 commit = "https://github.com/vrutkovs/blog/tree/"
