@@ -22,24 +22,12 @@
         let
             pkgs = nixpkgsFor.${system};
             nginxPort = "8000";
-            nginxConf = pkgs.writeText "nginx.conf" ''
-                user nobody nobody;
-                daemon off;
-                error_log /dev/stdout info;
-                pid /dev/null;
-                events {}
-                http {
-                    access_log /dev/stdout;
-                    server {
-                        listen ${nginxPort};
-                        index index.html;
-                        location / {
-                            include ${pkgs.nginx}/conf/mime.types;
-                            root ${self.packages.${system}.default};
-                        }
-                    }
-                }
-            '';
+            nginxConf = pkgs.substituteAll {
+                src = ./nginx.conf;
+                nginxPort = "${nginxPort}";
+                nginxPath = "${pkgs.nginx}";
+                nginxRoot = "${self.packages.${system}.default}";
+            };
         in
         {
             default = pkgs.stdenv.mkDerivation {
