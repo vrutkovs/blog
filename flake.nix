@@ -42,7 +42,7 @@
                 buildPhase = ''
                     ${pkgs.hugo}/bin/hugo --minify
                 '';
-                installPhase = "cp -r public $out";
+                installPhase = "gzip -k -6 $(find public -type f) && cp -r public $out";
             };
             containerImage = pkgs.dockerTools.buildLayeredImage {
                 name = "vrutkovs/blog";
