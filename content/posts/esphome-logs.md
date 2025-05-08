@@ -51,6 +51,11 @@ logger:
               }
 ```
 
-This will strip ANSI colors from the message, add appropriate log level and instance tags, and send them to the central log location. Unfortunately, there is no disk to buffer unsuccessful requests, so there is no retry and thus no guarantee that the log line will be delivered.
+This will strip ANSI colors from the message, add appropriate log level and instance tags, and send them to the central log location.
+
+Here's how it looks in VictoriaLogs UI:
+{{< figure src="../../images/esphome-logs-01.png" caption="ESPHome logs" >}}
+
+Unfortunately, there is no disk to buffer unsuccessful requests, so there is no retry and thus no guarantee that the log line will be delivered.
 
 If you're using Loki for log storage the JSON needs to be reformatted, but it's fairly trivial and left as an exercise to the reader.
