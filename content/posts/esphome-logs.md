@@ -14,7 +14,7 @@ They are mostly not, as they can't run a [Prometheus exporter](https://prometheu
 I decided to improve this last part. ESP microcontrollers cannot be configured to run [Vector](https://vector.dev/)/[Promtail](https://grafana.com/docs/loki/latest/send-data/promtail/) log collectors, so this option is off the table. They can be configured to send logs as MQTT messages, but it feels wrong to mix loglines and legitimate messages.
 
 ESPHome can send HTTP requests, so this is the path I chose. Here's how I configured to send log lines as JSON lines to my VictoriaLogs instance:
-```
+```yaml
 esphome:
   includes:
   - <iostream>
