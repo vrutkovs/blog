@@ -5,7 +5,7 @@ draft: false
 comments:
   host: m.vrutkovs.eu
   username: vadim
-  id: none
+  id: 114471003150957372
 ---
 Recently I started improving the observability status of my home lab and it felt that I was missing some crucial parts. I collected metrics and logs from all machines and built a few beautiful dashboards and yet something was missing. Then it dawned on me - I have a few [ESP microcontrollers](https://shop.m5stack.com/products/atom-lite-esp32-development-kit) scattered around the house, provisioned by [ESPHome](https://www.esphome.io/) and controlled by [Home Assistant](https://www.home-assistant.io/). Are they observable?
 
