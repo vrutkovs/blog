@@ -3,15 +3,13 @@ title = "Vadim Rutkovsky"
 theme = "hugo-coder"
 languageCode = "en"
 defaultContentLanguage = "en"
+enableRobotsTXT = true
 
-[pagination]
-pagerSize = 20
-
-pygmentsStyle = "b2"
 pygmentsCodeFences = true
 pygmentsCodeFencesGuessSyntax = true
 
-enableRobotsTXT = true
+[pagination]
+pagerSize = 20
 
 
 [params]
