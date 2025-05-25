@@ -31,8 +31,8 @@ rtl = false
 
 math = false
 
-customCSS = ["css/extra-style.css", "css/lightbox.css"]
-customJS = ["js/lightbox.js", "js/jquery-3.4.1.min.js", "js/purify.min.js"]
+customCSS = ["css/extra-style.css"]
+customJS = ["js/lightbox.js", "js/purify.min.js"]
 
 hideColorSchemeToggle = true
 commit = "https://github.com/vrutkovs/blog/tree/"

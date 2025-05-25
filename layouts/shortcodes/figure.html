@@ -13,11 +13,7 @@
   {{ with .Get "height" }}style="height: {{ . }};"{{ end }}
   >
     <a
-      {{ if .Get "lightbox" }}
-        data-lightbox="{{ .Get "lightbox" | markdownify | plainify }}"
-      {{ else }}
-        data-lightbox="image-{{ $image }}"
-      {{ end }}
+      data-fslightbox="gallery"
       {{ if $image_link_absolute }}
         href="{{ $image | absURL }}"
       {{ else }}
