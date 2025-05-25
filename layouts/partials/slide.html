@@ -1,11 +1,19 @@
 <section class="container page">
-  <article>
-    <header>
-      <h1>{{ .Title }}</h1>
-    </header>
-    <div>
-        <i>{{ .Date.Format (.Site.Params.dateFormat | default "January 2, 2006" ) }} @{{.Params.location}}</i>
-    </div>
-    {{ .Content }}
-  </article>
+    <article>
+        <header>
+            <h1>{{ .Title }}</h1>
+        </header>
+        <div class="date">
+            <span class="posted-on">
+                <i class="fa fa-calendar"></i>
+                <i>{{ .Date.Format (.Site.Params.dateFormat | default "January 2, 2006" ) }}</i>
+            </span>
+            &nbsp;
+            <span class="location">
+                <i class="fa fa-location-dot"></i>
+                <i>{{.Params.location}}</i>
+            </span>
+        </div>
+        {{ .Content }}
+    </article>
 </section>
