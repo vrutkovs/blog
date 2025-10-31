@@ -5,7 +5,7 @@ draft: false
 comments:
   host: m.vrutkovs.eu
   username: vadim
-  id: 115467626027393009
+  id: 115470207106722428
 ---
 
 I started using [Obsidian](https://obsidian.md/) quite a lot and it's been super-helpful for organizing my thoughts and notes. Alongside some fleeting notes I also started using it as Read It Later tool instead of [Wallabag](https://wallabag.org/). [Obsidian Web Clipper](https://obsidian.md/clipper) can also automatically save articles from the browser to Obsidian, adding tags and other metadata.
