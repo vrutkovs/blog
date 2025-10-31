@@ -33,7 +33,6 @@ customCSS = ["css/extra-style.css"]
 customJS = ["js/lightbox.js", "js/purify.min.js"]
 
 hideColorSchemeToggle = true
-commit = "https://github.com/vrutkovs/blog/tree/"
 
 # Social links
 [[params.social]]

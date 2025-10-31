@@ -12,7 +12,7 @@
         flake = false;
     };
   };
-  outputs = { self, nixpkgs, utils, hugo-coder, hugo-notice, ... }:
+  outputs = { self, nixpkgs, utils, hugo-coder, hugo-notice, ... } :
     let
         supportedSystems = [ "x86_64-linux" "x86_64-darwin" "aarch64-linux" "aarch64-darwin" ];
         forAllSystems = nixpkgs.lib.genAttrs supportedSystems;
@@ -32,6 +32,7 @@
             default = pkgs.stdenv.mkDerivation {
                 name = "hugo-blog";
                 src = self;
+                buildInputs = [ pkgs.git ];
                 configurePhase = ''
                     mkdir -p "themes/hugo-coder"
                     cp -rvf ${hugo-coder}/* "themes/hugo-coder"
@@ -39,9 +40,11 @@
                     cp -rvf ${hugo-notice}/* "themes/hugo-notice"
                 '';
                 buildPhase = ''
+                    mkdir -p data
+                    echo "git_hash_short: ${self.shortRev}" > data/git.yml
                     ${pkgs.hugo}/bin/hugo --minify
                 '';
-                installPhase = "gzip -k -6 $(find public -type f) && cp -r public $out";
+                installPhase = "gzip -k -6 $(find public -type f) && cp -r public $out && cp -r data $out";
             };
             containerImage = pkgs.dockerTools.buildLayeredImage {
                 name = "vrutkovs/blog";
