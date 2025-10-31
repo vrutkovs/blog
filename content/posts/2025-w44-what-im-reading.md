@@ -1,5 +1,5 @@
 ---
-title: "What I'm Reading - October 2025"
+title: "What I'm Reading - 27-31 October 2025"
 date: 2025-10-31T00:00:00+02:00
 draft: false
 comments:
