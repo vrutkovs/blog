@@ -7,5 +7,33 @@
   {{- .Title }} -> {{ .Site.Title -}}
 {{ end }}
 {{ define "content" }}
-  {{ partial "post_list.html" . }}
+<section class="container list">
+  <h1 class="title">
+    {{- if eq .Kind "taxonomy" -}}
+      {{- i18n .Data.Singular | title -}}
+      {{- print ": " -}}
+    {{- end -}}
+    {{- .Title -}}
+  </h1>
+
+  {{ $.Scratch.Set "currentYear" "" }}
+  {{ $pages := .Paginator.Pages }}
+  {{ range $pages }}
+    {{ $year := .Date.Format "2006" }}
+    {{ if ne ($.Scratch.Get "currentYear") $year }}
+      {{ if ne ($.Scratch.Get "currentYear") "" }}
+      </ul>
+      {{ end }}
+      <h2>{{ $year }}</h2>
+      <ul>
+      {{ $.Scratch.Set "currentYear" $year }}
+    {{ end }}
+    <li>
+      <a href="{{ .Params.ExternalLink | default .RelPermalink }}">{{ .Title }}</a>
+    </li>
+  {{ end }}
+  {{ if ne ($.Scratch.Get "currentYear") "" }}</ul>{{ end }}
+
+  {{ partial "pagination.html" . }}
+</section>
 {{ end }}
