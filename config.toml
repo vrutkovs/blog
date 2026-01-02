@@ -63,6 +63,11 @@ name = "Posts"
 weight = 2
 url = "/posts/"
 
+[[menu.main]]
+name = "What I'm Reading"
+weight = 3
+url = "/reading-list/"
+
 [module]
 [[module.imports]]
 path = "hugo-coder"
