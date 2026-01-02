@@ -17,10 +17,10 @@ author = "Vadim Rutkovsky"
 info = "Senior rubber duck collector"
 description = "Vadim Rutkovsky's personal site"
 keywords = "blog,developer,personal"
-avatarUrl = "images/avatar.jpg"
+avatarUrl = "images/avatar.png"
 
-favicon_32 = "/img/favicon-32x32.png"
-favicon_16 = "/img/favicon-16x16.png"
+favicon = "/favicon.ico"
+appleTouchIcon = "/apple-touch-icon.png"
 
 hideCredits = true
 hideCopyright = true
