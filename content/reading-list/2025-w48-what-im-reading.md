@@ -1,7 +1,11 @@
 ---
-title: "What I'm Reading - 22-29 November 2025"
+title: "22-29 November 2025"
 date: 2025-11-29T00:00:00+02:00
 draft: false
+type: "reading-list"
+url: "/reading-list/2025-w48/"
+aliases:
+  - "/posts/2025-w48-what-im-reading/"
 comments:
   host: m.vrutkovs.eu
   username: vadim

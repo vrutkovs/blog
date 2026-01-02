@@ -1,7 +1,11 @@
 ---
-title: "What I'm Reading - 13-20 December 2025"
+title: "13-20 December 2025"
 date: 2025-12-20T00:00:00+02:00
 draft: false
+type: "reading-list"
+url: "/reading-list/2025-w51/"
+aliases:
+  - "/posts/2025-w51-what-im-reading/"
 comments:
   host: m.vrutkovs.eu
   username: vadim

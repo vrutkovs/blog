@@ -1,0 +1,24 @@
+<section class="container page">
+    <article>
+        <header>
+            <h1>What I'm Reading: {{ .Title }}</h1>
+            <div class="post-meta">
+                <div class="date">
+                    <span class="posted-on">
+                        <i class="fa fa-calendar"></i>
+                        <i
+                            >{{ .Date.Format (.Site.Params.dateFormat | default "January 2, 2006" )
+                            }}</i
+                        >
+                    </span>
+                </div>
+            </div>
+        </header>
+
+        <div>{{ .Content }}</div>
+
+        <div id="comments">
+            {{ with .Params.comments }} {{ partial "comments.html" . }} {{ end }}
+        </div>
+    </article>
+</section>
