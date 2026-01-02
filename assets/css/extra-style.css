@@ -55,3 +55,339 @@ section.container.list > ul > li {
 .mastodon-comment-content p:first-child {
     margin-top: 0;
 }
+
+/* Dark/Light Mode Toggle */
+.theme-toggle {
+    cursor: pointer;
+    display: inline-flex;
+    align-items: center;
+    position: relative;
+    margin-left: 1rem;
+    padding: 0.5rem 0;
+}
+
+.theme-toggle input[type="checkbox"] {
+    display: none;
+}
+
+.toggle-slider {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 60px;
+    height: 28px;
+    background-color: #cbd5e0;
+    border-radius: 28px;
+    padding: 0 6px;
+    position: relative;
+    transition: background-color 0.3s ease;
+    box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.toggle-slider::before {
+    content: "";
+    position: absolute;
+    width: 22px;
+    height: 22px;
+    border-radius: 50%;
+    background-color: white;
+    left: 3px;
+    transition: transform 0.3s ease;
+    z-index: 2;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.theme-toggle input[type="checkbox"]:checked + .toggle-slider::before {
+    transform: translateX(31px);
+}
+
+.theme-toggle input[type="checkbox"]:checked + .toggle-slider {
+    background-color: #4a5568;
+}
+
+.sun-icon,
+.moon-icon {
+    font-size: 14px;
+    z-index: 1;
+}
+
+.sun-icon {
+    color: #9ca3af;
+}
+
+.moon-icon {
+    color: #1e1e1e;
+}
+
+body.colorscheme-dark .toggle-slider {
+    background-color: #4a5568;
+}
+
+body.colorscheme-light .toggle-slider {
+    background-color: #cbd5e0;
+}
+
+body.colorscheme-dark .sun-icon {
+    color: #1e1e1e;
+}
+
+body.colorscheme-dark .moon-icon {
+    color: #9ca3af;
+}
+
+body.colorscheme-light .sun-icon {
+    color: #9ca3af;
+}
+
+body.colorscheme-light .moon-icon {
+    color: #1e1e1e;
+}
+
+/* Respect system preference when no manual selection has been made */
+@media (prefers-color-scheme: dark) {
+    body:not(.colorscheme-light):not(.colorscheme-dark),
+    body.colorscheme-auto {
+        color-scheme: dark;
+    }
+
+    body:not(.colorscheme-light):not(.colorscheme-dark) .toggle-slider,
+    body.colorscheme-auto .toggle-slider {
+        background-color: #4a5568;
+    }
+
+    body:not(.colorscheme-light):not(.colorscheme-dark) .sun-icon,
+    body.colorscheme-auto .sun-icon {
+        color: #9ca3af;
+    }
+
+    body:not(.colorscheme-light):not(.colorscheme-dark) .moon-icon,
+    body.colorscheme-auto .moon-icon {
+        color: #1e1e1e;
+    }
+
+    body:not(.colorscheme-light):not(.colorscheme-dark)
+        .theme-toggle
+        input[type="checkbox"]:not(:checked)
+        + .toggle-slider::before,
+    body.colorscheme-auto
+        .theme-toggle
+        input[type="checkbox"]:not(:checked)
+        + .toggle-slider::before {
+        transform: translateX(31px);
+    }
+}
+
+@media (prefers-color-scheme: light) {
+    body:not(.colorscheme-light):not(.colorscheme-dark),
+    body.colorscheme-auto {
+        color-scheme: light;
+    }
+}
+
+/* Mobile adjustments */
+@media only screen and (max-width: 768px) {
+    .theme-toggle {
+        margin-left: 0;
+        margin-top: 0.5rem;
+        width: 100%;
+        justify-content: center;
+    }
+
+    .navigation-list .navigation-item {
+        text-align: center;
+    }
+}
+
+/* Ensure toggle aligns properly in navigation */
+.navigation-list {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+@media only screen and (min-width: 769px) {
+    .navigation-list {
+        justify-content: flex-end;
+    }
+}
+
+/* Dark mode: Highlights and code blocks */
+body.colorscheme-dark .highlight {
+    box-shadow: 1px 1px 1px 1px #4f4f4f;
+    background-color: #1e1e1e;
+}
+
+body.colorscheme-dark .highlight pre {
+    background-color: #1e1e1e;
+}
+
+body.colorscheme-dark code {
+    background-color: #4f4f4f;
+    color: #dadada;
+}
+
+body.colorscheme-dark pre code {
+    background-color: inherit;
+    color: inherit;
+}
+
+/* Dark mode: Mastodon comments */
+body.colorscheme-dark .mastodon-comment {
+    background-color: #2d2d2d;
+    border: 1px solid #424242;
+}
+
+body.colorscheme-dark .mastodon-comment .author {
+    color: #dadada;
+}
+
+body.colorscheme-dark .mastodon-comment .date {
+    color: #9e9e9e;
+}
+
+body.colorscheme-dark .mastodon-comment-content {
+    color: #dadada;
+}
+
+body.colorscheme-dark .mastodon-comment .disabled {
+    color: #42a5f5;
+}
+
+body.colorscheme-dark .mastodon-comment a {
+    color: #42a5f5;
+}
+
+body.colorscheme-dark .mastodon-comment a:hover {
+    color: #64b5f6;
+}
+
+/* Float container positioning - Top right corner */
+.float-container {
+    position: fixed;
+    top: 20px;
+    right: 20px;
+    z-index: 1000;
+}
+
+/* Theme Toggle Switch */
+.theme-toggle-wrapper {
+    display: inline-block;
+}
+
+.theme-toggle {
+    position: relative;
+    display: inline-block;
+    cursor: pointer;
+}
+
+.theme-toggle input[type="checkbox"] {
+    opacity: 0;
+    width: 0;
+    height: 0;
+    position: absolute;
+}
+
+.toggle-track {
+    display: flex;
+    align-items: center;
+    width: 70px;
+    height: 36px;
+    background-color: var(--body-background);
+    border: 2px solid var(--accent-color);
+    border-radius: 18px;
+    position: relative;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.toggle-thumb {
+    position: absolute;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 28px;
+    height: 28px;
+    background-color: var(--accent-color);
+    border-radius: 50%;
+    left: 3px;
+    transition: transform 0.3s ease;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+}
+
+.theme-toggle input[type="checkbox"]:checked ~ .toggle-track .toggle-thumb {
+    transform: translateX(34px);
+}
+
+/* Icons inside the thumb */
+.toggle-thumb i {
+    position: absolute;
+    font-size: 1rem;
+    transition: opacity 0.3s ease;
+}
+
+.sun-icon {
+    color: #1e1e1e;
+    opacity: 1;
+}
+
+.moon-icon {
+    color: #e0e7ff;
+    opacity: 0;
+}
+
+.theme-toggle input[type="checkbox"]:checked ~ .toggle-track .toggle-thumb .sun-icon {
+    opacity: 0;
+}
+
+.theme-toggle input[type="checkbox"]:checked ~ .toggle-track .toggle-thumb .moon-icon {
+    opacity: 1;
+}
+
+/* Hover effect */
+.theme-toggle:hover .toggle-track {
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+}
+
+.theme-toggle:hover .toggle-thumb {
+    transform: scale(1.05);
+}
+
+.theme-toggle input[type="checkbox"]:checked:hover ~ .toggle-track .toggle-thumb {
+    transform: translateX(34px) scale(1.05);
+}
+
+/* Focus state for accessibility */
+.theme-toggle input[type="checkbox"]:focus ~ .toggle-track {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+}
+
+/* Mobile adjustments for float container */
+@media only screen and (max-width: 768px) {
+    .float-container {
+        top: 10px;
+        right: 10px;
+    }
+
+    .toggle-track {
+        width: 60px;
+        height: 32px;
+    }
+
+    .toggle-thumb {
+        width: 24px;
+        height: 24px;
+    }
+
+    .toggle-thumb i {
+        font-size: 0.9rem;
+    }
+
+    .theme-toggle input[type="checkbox"]:checked ~ .toggle-track .toggle-thumb {
+        transform: translateX(28px);
+    }
+
+    .theme-toggle input[type="checkbox"]:checked:hover ~ .toggle-track .toggle-thumb {
+        transform: translateX(28px) scale(1.05);
+    }
+}
