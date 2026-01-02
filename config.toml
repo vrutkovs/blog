@@ -64,7 +64,7 @@ weight = 2
 url = "/posts/"
 
 [[menu.main]]
-name = "Reading List"
+name = "What I'm Reading"
 weight = 3
 url = "/reading-list/"
 

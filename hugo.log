@@ -13,12 +13,12 @@ WARN  found no layout file for "html" for kind "page": You should create a templ
   Pages            | 36
   Paginator pages  |  0
   Non-page files   | 27
-  Static files     |  8
+  Static files     |  9
   Processed images |  0
   Aliases          |  0
   Cleaned          |  0
 
-Built in 1036 ms
+Built in 812 ms
 Environment: "development"
 Serving pages from disk
 Running in Fast Render Mode. For full rebuilds on change: hugo server --disableFastRender
