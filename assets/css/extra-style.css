@@ -1,3 +1,10 @@
+body {
+    background-color: var(--body-background-color);
+    background-image: url("data:image/svg+xml,%3Csvg width='20' height='20' viewBox='0 0 20 20' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='%239C92AC' fill-opacity='0.4' fill-rule='evenodd'%3E%3Ccircle cx='3' cy='3' r='3'/%3E%3Ccircle cx='13' cy='13' r='3'/%3E%3C/g%3E%3C/svg%3E");
+    font-size: 1.1rem;
+    line-height: 1.6;
+}
+
 .highlight {
     box-shadow: 1px 1px 1px 1px #a8a8a8;
 }
@@ -54,4 +61,14 @@ section.container.list > ul > li {
 
 .mastodon-comment-content p:first-child {
     margin-top: 0;
+}
+
+.container {
+    box-shadow: 0 0 1rem rgba(0, 0, 0, .2);
+    border-radius: 1rem;
+}
+
+
+.color-scheme-toggle {
+    transition: all 0.5s ease;
 }

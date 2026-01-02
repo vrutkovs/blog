@@ -19,8 +19,8 @@ description = "Vadim Rutkovsky's personal site"
 keywords = "blog,developer,personal"
 avatarUrl = "images/avatar.jpg"
 
-favicon_32 = "/img/favicon-32x32.png"
-favicon_16 = "/img/favicon-16x16.png"
+favicon_32 = "/images/favicon.svg"
+favicon_16 = "/images/favicon.svg"
 
 hideCredits = true
 hideCopyright = true
@@ -62,6 +62,11 @@ url = "/slides/"
 name = "Posts"
 weight = 2
 url = "/posts/"
+
+[[menu.main]]
+name = "Reading List"
+weight = 3
+url = "/reading-list/"
 
 [module]
 [[module.imports]]
