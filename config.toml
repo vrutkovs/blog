@@ -31,8 +31,7 @@ math = false
 
 customCSS = ["css/extra-style.css"]
 customJS = ["js/lightbox.js", "js/purify.min.js"]
-
-hideColorSchemeToggle = true
+colorScheme = "auto"
 
 # Social links
 [[params.social]]
