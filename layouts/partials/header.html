@@ -11,13 +11,11 @@
         <i class="fa-solid fa-bars fa-fw" aria-hidden="true"></i>
       </label>
       <ul class="navigation-list">
-        {{ if not .Site.Params.hideColorSchemeToggle }}
         <li class="navigation-item">
-            <a id="dark-mode-toggle" class="colorscheme-toggle">
-                <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
-            </a>
+          <a class="navigation-link" href="javascript:void(0)" id="mode" title="Toggle Theme">
+            <i class="fa-solid fa-sun fa-fw" aria-hidden="true"></i>
+          </a>
         </li>
-        {{ end }}
         {{ with .Site.Menus.main}}
           {{ range sort . }}
             <li class="navigation-item">
