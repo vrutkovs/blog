@@ -391,3 +391,10 @@ body.colorscheme-dark .mastodon-comment a:hover {
         transform: translateX(28px) scale(1.05);
     }
 }
+
+/* Hide theme switcher from desktop navigation bar */
+@media only screen and (min-width: 769px) {
+  .navigation-list .colorscheme-toggle {
+    display: none;
+  }
+}
