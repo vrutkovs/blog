@@ -31,7 +31,7 @@ rtl = false
 math = false
 
 customCSS = ["css/extra-style.css"]
-customJS = ["js/lightbox.js", "js/purify.min.js"]
+customJS = ["js/lightbox.js", "js/purify.min.js", "js/fuse.min.js", "js/mark.min.js", "js/search.js"]
 colorScheme = "auto"
 
 # Social links
@@ -70,5 +70,17 @@ url = "/reading-list/"
 
 
 [outputs]
-home = ["html", "rss"]
-page = ["html"]
+home = ["HTML", "RSS", "JSON"]
+page = ["HTML"]
+
+[outputFormats]
+[outputFormats.JSON]
+  name = "JSON"
+  mediaType = "application/json"
+  baseName = "index"
+  isPlainText = true
+  notAlternative = true
+
+[mediaTypes]
+[mediaTypes."application/json"]
+  suffixes = ["json"]

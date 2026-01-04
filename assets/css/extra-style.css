@@ -397,3 +397,58 @@ body.colorscheme-dark .mastodon-comment a:hover {
         transform: translateX(28px) scale(1.05);
     }
 }
+
+/* Make sure tappable elements are at least 44x44px */
+.navigation-link,
+.menu-button,
+.about ul li a,
+.footer a {
+    min-height: 44px;
+    min-width: 44px;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Responsive typography scaling */
+html {
+    font-size: clamp(16px, 1.5vw, 20px);
+}
+
+/* Search results */
+#search-results-container {
+    visibility: hidden;
+    opacity: 0;
+    transition: opacity 0.2s ease-in-out, visibility 0.2s ease-in-out;
+    position: absolute;
+    top: 60px;
+    right: 20px;
+    width: 300px;
+    background-color: var(--body-background);
+    border: 1px solid var(--accent-color);
+    border-radius: 5px;
+    z-index: 1000;
+}
+
+#search-results-container.show {
+    visibility: visible;
+    opacity: 1;
+}
+
+#search-results {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+#search-results li a {
+    display: block;
+    padding: 10px;
+    color: var(--text-color);
+    text-decoration: none;
+}
+
+#search-results li a:hover {
+    background-color: var(--accent-color);
+    color: var(--body-background);
+}
