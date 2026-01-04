@@ -362,6 +362,12 @@ body.colorscheme-dark .mastodon-comment a:hover {
     outline-offset: 2px;
 }
 
+#dark-mode-toggle:focus-visible {
+    outline: 2px solid var(--accent-color);
+    outline-offset: 2px;
+    border-radius: 5px;
+}
+
 /* Mobile adjustments for float container */
 @media only screen and (max-width: 768px) {
     .float-container {
