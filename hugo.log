@@ -1,0 +1,30 @@
+port 1313 already in use, attempting to use an available port
+Watching for changes in /app/{archetypes,assets,content,layouts,static,themes}
+Watching for config changes in /app/config.toml, /app/themes/hugo-coder/hugo.toml
+Start building sites …
+hugo v0.124.0-629f84e8edfb0b1b743c3942cd039da1d99812b0+extended linux/amd64 BuildDate=2024-03-16T15:44:32Z VendorInfo=gohugoio
+
+WARN  found no layout file for "html" for kind "taxonomy": You should create a template file which matches Hugo Layouts Lookup Rules for this combination.
+
+                   | EN
+-------------------+-----
+  Pages            | 36
+  Paginator pages  |  0
+  Non-page files   | 27
+  Static files     | 10
+  Processed images |  0
+  Aliases          |  9
+  Cleaned          |  0
+
+Built in 2154 ms
+Environment: "development"
+Serving pages from disk
+Running in Fast Render Mode. For full rebuilds on change: hugo server --disableFastRender
+Web Server is available at http://localhost:34127/ (bind address 127.0.0.1)
+Press Ctrl+C to stop
+
+Change detected, rebuilding site (#1).
+2026-01-04 20:38:16.859 +0000
+Template changed /partials/float.html
+WARN  found no layout file for "html" for kind "taxonomy": You should create a template file which matches Hugo Layouts Lookup Rules for this combination.
+Total in 238 ms
