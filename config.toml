@@ -1,6 +1,6 @@
 baseurl = "https://vrutkovs.eu/"
 title = "Vadim Rutkovsky"
-theme = "hugo-coder"
+theme = ["hugo-notice", "hugo-coder"]
 languageCode = "en"
 defaultContentLanguage = "en"
 enableRobotsTXT = true
@@ -18,6 +18,7 @@ info = "Senior rubber duck collector"
 description = "Vadim Rutkovsky's personal site"
 keywords = "blog,developer,personal"
 avatarUrl = "images/avatar.png"
+images = ["images/avatar.png"]
 
 favicon = "/favicon.ico"
 appleTouchIcon = "/apple-touch-icon.png"
@@ -67,11 +68,6 @@ name = "What I'm Reading"
 weight = 3
 url = "/reading-list/"
 
-[module]
-[[module.imports]]
-path = "hugo-coder"
-[[module.imports]]
-path = "hugo-notice"
 
 [outputs]
 home = ["html", "rss"]
