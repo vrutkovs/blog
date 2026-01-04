@@ -1,6 +1,6 @@
 baseurl = "https://vrutkovs.eu/"
 title = "Vadim Rutkovsky"
-theme = "hugo-coder"
+theme = ["hugo-notice", "hugo-coder"]
 languageCode = "en"
 defaultContentLanguage = "en"
 enableRobotsTXT = true
