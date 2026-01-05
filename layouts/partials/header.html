@@ -38,6 +38,9 @@
         <li class="navigation-item">
           <input type="text" id="search-query" placeholder="Search...">
         </li>
+        {{ if not .Site.Params.hideColorSchemeToggle }}
+          {{ partial "theme-switcher.html" . }}
+        {{ end }}
       </ul>
     {{ end }}
   </section>

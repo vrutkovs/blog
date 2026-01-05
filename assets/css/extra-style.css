@@ -290,11 +290,11 @@ body.colorscheme-dark .mastodon-comment a:hover {
 .toggle-track {
     display: flex;
     align-items: center;
-    width: 70px;
-    height: 36px;
+    width: 38px;
+    height: 20px;
     background-color: var(--body-background);
     border: 2px solid var(--accent-color);
-    border-radius: 18px;
+    border-radius: 10px;
     position: relative;
     transition: background-color 0.3s ease;
     box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
@@ -305,8 +305,8 @@ body.colorscheme-dark .mastodon-comment a:hover {
     display: flex;
     align-items: center;
     justify-content: center;
-    width: 28px;
-    height: 28px;
+    width: 16px;
+    height: 16px;
     background-color: var(--accent-color);
     border-radius: 50%;
     left: 3px;
@@ -315,13 +315,13 @@ body.colorscheme-dark .mastodon-comment a:hover {
 }
 
 .theme-toggle input[type="checkbox"]:checked ~ .toggle-track .toggle-thumb {
-    transform: translateX(34px);
+    transform: translateX(18px);
 }
 
 /* Icons inside the thumb */
 .toggle-thumb i {
     position: absolute;
-    font-size: 1rem;
+    font-size: 0.6rem;
     transition: opacity 0.3s ease;
 }
 
