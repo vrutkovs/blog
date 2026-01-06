@@ -40,6 +40,13 @@
             // Update toggle state
             themeSwitch.checked = theme === "dark";
 
+            // Update aria-label for accessibility
+            if (theme === "dark") {
+                themeSwitch.setAttribute("aria-label", "Switch to light theme");
+            } else {
+                themeSwitch.setAttribute("aria-label", "Switch to dark theme");
+            }
+
             // Save preference
             localStorage.setItem("theme-preference", theme);
         }
