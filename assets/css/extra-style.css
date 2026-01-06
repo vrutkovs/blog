@@ -264,8 +264,8 @@ body.colorscheme-dark .mastodon-comment a:hover {
 /* Float container positioning - Top right corner */
 .float-container {
     position: fixed;
-    top: 20px;
-    right: 20px;
+    top: 0px;
+    right: 50px;
     z-index: 1000;
 }
 
@@ -371,13 +371,12 @@ body.colorscheme-dark .mastodon-comment a:hover {
 /* Mobile adjustments for float container */
 @media only screen and (max-width: 768px) {
     .float-container {
-        top: 10px;
-        right: 10px;
+        top: 0px;
+        right: 50px;
     }
 
     .toggle-track {
-        width: 60px;
-        height: 32px;
+        height: 24px;
     }
 
     .toggle-thumb {
