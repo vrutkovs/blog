@@ -1,0 +1,12 @@
+{{- /*
+This partial is an override of the hugo-coder theme's `layouts/partials/float.html`.
+The original `<a>` tag was converted to a `<button>` to improve accessibility
+by using a more semantic HTML element for a user action. An `aria-label` was also added.
+*/ -}}
+{{ if not .Site.Params.hideColorSchemeToggle }}
+<div class="float-container">
+    <button id="dark-mode-toggle" class="colorscheme-toggle" type="button" aria-label="Toggle theme">
+        <i class="fa-solid fa-adjust fa-fw" aria-hidden="true"></i>
+    </button>
+</div>
+{{ end }}
