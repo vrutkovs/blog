@@ -21,7 +21,7 @@
 
         // Check for saved theme preference or default to system preference
         function getPreferredTheme() {
-            const savedTheme = localStorage.getItem("theme-preference");
+            const savedTheme = localStorage.getItem("colorscheme");
             if (savedTheme) {
                 return savedTheme;
             }
@@ -42,7 +42,7 @@
             themeSwitch.checked = theme === "dark";
 
             // Save preference
-            localStorage.setItem("theme-preference", theme);
+            localStorage.setItem("colorscheme", theme);
         }
 
         // Toggle theme
@@ -61,7 +61,7 @@
 
         // Listen for system theme changes
         window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function (e) {
-            if (!localStorage.getItem("theme-preference")) {
+            if (!localStorage.getItem("colorscheme")) {
                 applyTheme(e.matches ? "dark" : "light");
             }
         });
