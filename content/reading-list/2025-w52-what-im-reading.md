@@ -1,6 +1,6 @@
 ---
 title: "21-31 December 2025"
-date: 2026-01-01T00:00:00+02:00
+date: 2025-31-01T00:00:00+02:00
 draft: false
 type: "reading-list"
 url: "/reading-list/2025-w52/"
