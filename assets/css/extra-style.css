@@ -396,3 +396,40 @@ body.colorscheme-dark .mastodon-comment a:hover {
         transform: translateX(28px) scale(1.05);
     }
 }
+
+/*
+ * Theme Toggle Icon Visibility
+ *
+ * Controls which icon (sun or moon) is visible in the theme toggle button
+ * based on the current color scheme. The visible icon always represents
+ * the theme that will be activated on click.
+ */
+
+/* Show moon icon in light mode (default) */
+.colorscheme-toggle .sun-icon {
+    display: none;
+}
+.colorscheme-toggle .moon-icon {
+    display: inline-block;
+}
+
+/* Show sun icon in dark mode */
+body.colorscheme-dark .colorscheme-toggle .sun-icon {
+    display: inline-block;
+}
+body.colorscheme-dark .colorscheme-toggle .moon-icon {
+    display: none;
+}
+
+/* Handle system preference for dark mode when no theme is explicitly set */
+@media (prefers-color-scheme: dark) {
+    body:not(.colorscheme-light):not(.colorscheme-dark) .colorscheme-toggle .sun-icon,
+    body.colorscheme-auto .colorscheme-toggle .sun-icon {
+        display: inline-block;
+    }
+
+    body:not(.colorscheme-light):not(.colorscheme-dark) .colorscheme-toggle .moon-icon,
+    body.colorscheme-auto .colorscheme-toggle .moon-icon {
+        display: none;
+    }
+}
