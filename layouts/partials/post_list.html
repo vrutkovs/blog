@@ -11,7 +11,11 @@
     {{ range .Paginator.Pages }}
     <li>
       <span class="date">{{ .Date.Format (.Site.Params.dateFormat | default "January 2, 2006" ) }}</span>
-      <a class="title" href="{{ .Params.ExternalLink | default .RelPermalink }}">{{ .Title }}</a>
+      {{ if .Params.ExternalLink }}
+      <a class="title" href="{{ .Params.ExternalLink }}" target="_blank" rel="noopener noreferrer">{{ .Title }} <i class="fa-solid fa-arrow-up-right-from-square fa-sm" aria-hidden="true"></i></a>
+      {{ else }}
+      <a class="title" href="{{ .RelPermalink }}">{{ .Title }}</a>
+      {{ end }}
     </li>
     {{ end }}
   </ul>
