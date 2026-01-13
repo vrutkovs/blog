@@ -29,7 +29,7 @@
       {{ $.Scratch.Set "currentYear" $year }}
     {{ end }}
     <li>
-      <a href="{{ .Params.ExternalLink | default .RelPermalink }}">{{ .Title }}</a>
+      <a href="{{ .Params.ExternalLink | default .RelPermalink }}"{{ if .Params.ExternalLink }} target="_blank" rel="noopener noreferrer"{{ end }}>{{ .Title }}{{ if .Params.ExternalLink }}<span class="sr-only"> (opens in a new tab)</span>{{ end }}</a>
     </li>
   {{ end }}
   {{ if ne ($.Scratch.Get "currentYear") "" }}</ul>{{ end }}
