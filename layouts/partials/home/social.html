@@ -1,0 +1,21 @@
+{{ with .Site.Params.social }}
+<ul>
+  {{ range sort . "weight" }}
+    {{ if .icon }}
+      <li>
+        <a href="{{ .url | safeURL }}" aria-label="{{ .name }}" target="_blank" rel="noopener noreferrer">
+          <i class="{{ .icon }}" aria-hidden="true"></i>
+          <span class="sr-only">({{ i18n "opens_in_a_new_tab" }})</span>
+        </a>
+      </li>
+    {{ else }}
+      <li>
+        <a href="{{ .url | safeURL }}" aria-label="{{ .name }}" target="_blank" rel="noopener noreferrer">
+          {{ .name }}
+          <span class="sr-only">({{ i18n "opens_in_a_new_tab" }})</span>
+        </a>
+      </li>
+    {{ end }}
+  {{ end }}
+</ul>
+{{ end }}
