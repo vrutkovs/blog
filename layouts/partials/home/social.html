@@ -1,0 +1,17 @@
+{{ with .Site.Params.social }}
+<ul>
+  {{ range sort . "weight" }}
+    {{ if .icon }}
+      <li>
+        <a href="{{ .url | safeURL }}" aria-label="{{ .name }}" {{ if .target }}target="{{ .target }}"{{ end }} {{ if or .rel (eq .target "_blank") }}rel="{{ if eq .target "_blank" }}noopener noreferrer {{ end }}{{ .rel }}"{{ end }} {{ if .type }}type="{{ .type }}"{{ end }}>
+          <i class="{{ .icon }}" aria-hidden="true"></i>
+        </a>
+      </li>
+    {{ else }}
+      <li>
+        <a href="{{ .url | safeURL }}" aria-label="{{ .name }}" {{ if .target }}target="{{ .target }}"{{ end }} {{ if or .rel (eq .target "_blank") }}rel="{{ if eq .target "_blank" }}noopener noreferrer {{ end }}{{ .rel }}"{{ end }}>{{ .name }}</a>
+      </li>
+    {{ end }}
+  {{ end }}
+</ul>
+{{ end }}

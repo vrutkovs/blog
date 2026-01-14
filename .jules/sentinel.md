@@ -1,0 +1,7 @@
+## 2024-07-18 - The Case of the Inactive Override
+
+**Vulnerability:** The `hugo-coder` theme's social links partial did not automatically add `rel="noopener noreferrer"` to external links that open in a new tab (`target="_blank"`), creating a "tabnabbing" vulnerability.
+
+**Learning:** Hugo's template override system is powerful but relies on a specific lookup order and can be affected by caching. I initially created the correct override file (`layouts/partials/home/social.html`), but code review feedback indicated it was non-functional. The key lesson was that Hugo's build cache (in the `resources/` and `public/` directories) can prevent an override from being applied immediately. Clearing this cache (`rm -rf resources public`) and restarting the server forced Hugo to recognize the new override file. Additionally, I learned to be vigilant about not accidentally staging and committing unrelated files (like `LICENSE` and `README.md`) downloaded during tool installation.
+
+**Prevention:** When a Hugo theme override doesn't seem to work, first clear the build cache before assuming the file path or logic is wrong. Always run `git status` and review the staged files carefully before committing to prevent unrelated artifacts from entering the repository.
