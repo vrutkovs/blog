@@ -1,0 +1,25 @@
+{{ with .Site.Params.social }}
+<ul>
+  {{ range sort . "weight" }}
+    {{ $isExternal := hasPrefix .url "http" }}
+    <li>
+      <a href="{{ .url | safeURL }}" aria-label="{{ .name }}"
+        {{- if $isExternal -}}
+          target="_blank" rel="noopener noreferrer"
+        {{- else if .rel -}}
+          rel="{{ .rel }}"
+        {{- end -}}
+      >
+      {{- if .icon -}}
+        <i class="{{ .icon }}" aria-hidden="true"></i>
+      {{- else -}}
+        {{ .name }}
+      {{- end -}}
+      {{- if $isExternal -}}
+        <span class="sr-only">(opens in a new tab)</span>
+      {{- end -}}
+      </a>
+    </li>
+  {{ end }}
+</ul>
+{{ end }}
