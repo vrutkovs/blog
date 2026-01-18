@@ -40,6 +40,7 @@ name = "Github"
 icon = "fa-brands fa-github fa-2x"
 weight = 1
 url = "https://github.com/vrutkovs/"
+rel = "me"
 [[params.social]]
 name = "Email"
 icon = "fa fa-envelope fa-2x"
