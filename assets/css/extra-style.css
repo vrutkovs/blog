@@ -433,3 +433,28 @@ body.colorscheme-dark .colorscheme-toggle .moon-icon {
         display: none;
     }
 }
+
+.skip-to-content {
+    position: absolute;
+    left: -10000px;
+    top: auto;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+}
+
+.skip-to-content:focus {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10px;
+    z-index: 1000;
+    width: auto;
+    height: auto;
+    padding: 10px;
+    background-color: var(--body-background);
+    color: var(--accent-color);
+    border: 2px solid var(--accent-color);
+    border-radius: 5px;
+    text-decoration: none;
+}
