@@ -1,0 +1,52 @@
+(function () {
+    const themeSwitch = document.getElementById("theme-switch");
+    const body = document.body;
+    const html = document.documentElement;
+
+    // Check for saved theme preference or default to system preference
+    function getPreferredTheme() {
+        const savedTheme = localStorage.getItem("colorscheme");
+        if (savedTheme) {
+            return savedTheme;
+        }
+        return window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+    }
+
+    // Apply theme to the page
+    function applyTheme(theme) {
+        // Remove both classes first
+        body.classList.remove("colorscheme-light", "colorscheme-dark");
+        html.classList.remove("colorscheme-light", "colorscheme-dark");
+
+        // Add the appropriate class
+        body.classList.add("colorscheme-" + theme);
+        html.classList.add("colorscheme-" + theme);
+
+        // Update toggle state
+        themeSwitch.checked = theme === "dark";
+
+        // Save preference
+        localStorage.setItem("colorscheme", theme);
+    }
+
+    // Toggle theme
+    function toggleTheme() {
+        const currentTheme = body.classList.contains("colorscheme-dark") ? "dark" : "light";
+        const newTheme = currentTheme === "dark" ? "light" : "dark";
+        applyTheme(newTheme);
+    }
+
+    // Event listener
+    themeSwitch.addEventListener("change", toggleTheme);
+
+    // Initialize theme on page load
+    const currentTheme = getPreferredTheme();
+    applyTheme(currentTheme);
+
+    // Listen for system theme changes
+    window.matchMedia("(prefers-color-scheme: dark)").addEventListener("change", function (e) {
+        if (!localStorage.getItem("colorscheme")) {
+            applyTheme(e.matches ? "dark" : "light");
+        }
+    });
+})();

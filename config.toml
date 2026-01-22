@@ -30,8 +30,8 @@ rtl = false
 
 math = false
 
-customCSS = ["css/extra-style.css"]
-customJS = ["js/lightbox.js", "js/purify.min.js"]
+customCSS = ["css/extra-style.css", "css/lightbox.css"]
+customJS = ["js/lightbox.js", "js/purify.min.js", "js/theme-switcher.js"]
 colorScheme = "auto"
 
 # Social links
