@@ -18,6 +18,7 @@ info = "Senior rubber duck collector"
 description = "Vadim Rutkovsky's personal site"
 keywords = "blog,developer,personal"
 avatarUrl = "images/avatar.png"
+avatarAlt = "Vadim Rutkovsky's avatar"
 images = ["images/avatar.png"]
 
 favicon = "/favicon.ico"
