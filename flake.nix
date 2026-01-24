@@ -1,7 +1,7 @@
 {
   description = "Blog";
   inputs = {
-    nixpkgs.url = "github:NixOS/nixpkgs";
+    nixpkgs.url = "github:NixOS/nixpkgs/177dbfc3c394f3d6e63903d639c6152261d51232";
     utils.url = "github:numtide/flake-utils";
     hugo-coder = {
         url = "github:luizdepra/hugo-coder/cb13ec4671611990420f29321c4430e928a67518";
