@@ -4,11 +4,11 @@
     nixpkgs.url = "github:NixOS/nixpkgs";
     utils.url = "github:numtide/flake-utils";
     hugo-coder = {
-        url = "github:luizdepra/hugo-coder";
+        url = "github:luizdepra/hugo-coder/cb13ec4671611990420f29321c4430e928a67518";
         flake = false;
     };
     hugo-notice = {
-        url = "github:martignoni/hugo-notice";
+        url = "github:martignoni/hugo-notice/7d311565755215e2d3bab57938bdbcf1194f11e4";
         flake = false;
     };
   };
