@@ -43,11 +43,10 @@
                         <span class="avatar">
                           <img src="${escapeHtml(reply.account.avatar_static)}" height=60 width=60 alt="">
                         </span>
-                        <a href="${reply.account.url}" rel="nofollow">
+                        <a href="${reply.account.url}" rel="nofollow" target="_blank">
                           <span>${reply.account.display_name}</span>
-                          <span class="disabled">${escapeHtml(reply.account.acct)}</span>
                         </a>
-                        <a class="date" href="${reply.uri}" rel="nofollow">
+                        <a class="date" href="${reply.uri}" rel="nofollow" target="_blank">
                           ${reply.created_at.substr(0, 10)}
                         </a>
                        </div>
