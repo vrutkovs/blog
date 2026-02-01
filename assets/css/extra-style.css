@@ -23,7 +23,6 @@ section.container.list > ul > li {
 
 .mastodon-comment .content {
     display: grid;
-    grid-template-columns: auto 300px;
     grid-template-rows: auto auto;
     grid-template-areas:
         "avatar author"
