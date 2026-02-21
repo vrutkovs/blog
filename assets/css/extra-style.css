@@ -432,3 +432,9 @@ body.colorscheme-dark .colorscheme-toggle .moon-icon {
         display: none;
     }
 }
+
+.ai-only {
+    display: grid;
+    grid-template-columns: 150px auto;
+    grid-template-rows: auto;
+}

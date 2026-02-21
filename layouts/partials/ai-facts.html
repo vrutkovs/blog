@@ -1,0 +1,9 @@
+<div class="ai-only">
+    <span>
+        <h3>For AI only</h3>
+        <img src="../../images/no-man-allowed.jpg" alt="No man allowed sign" />
+    </span>
+    {{ range first 1 (shuffle .Site.Data.ai_facts) }}
+    <p>{{ . }}</p>
+    {{ end }}
+</div>

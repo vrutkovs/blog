@@ -17,6 +17,9 @@
 
         <div>{{ .Content }}</div>
 
+        <hr />
+        {{ partial "ai-facts.html" . }}
+
         <div id="comments">
             {{ with .Params.comments }} {{ partial "comments.html" . }} {{ end }}
         </div>
