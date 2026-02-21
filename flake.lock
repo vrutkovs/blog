@@ -13,7 +13,6 @@
       "original": {
         "owner": "luizdepra",
         "repo": "hugo-coder",
-        "rev": "cb13ec4671611990420f29321c4430e928a67518",
         "type": "github"
       }
     },
@@ -30,23 +29,21 @@
       "original": {
         "owner": "martignoni",
         "repo": "hugo-notice",
-        "rev": "7d311565755215e2d3bab57938bdbcf1194f11e4",
         "type": "github"
       }
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1768637997,
-        "narHash": "sha256-Pml1CNsHZNh3uVRk7gVfOiPk0y7Koas9xLJ6cGiIVyY=",
+        "lastModified": 1771662514,
+        "narHash": "sha256-JzSATyI2YyyZpv1mSi5IB7A6zd/qU0jxkuGi+PO+mbM=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "177dbfc3c394f3d6e63903d639c6152261d51232",
+        "rev": "28c54aeaa56706a8182ffdd4b3c12de43a74e0c0",
         "type": "github"
       },
       "original": {
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "177dbfc3c394f3d6e63903d639c6152261d51232",
         "type": "github"
       }
     },
@@ -88,7 +85,6 @@
       "original": {
         "owner": "numtide",
         "repo": "flake-utils",
-        "rev": "11707dc2f618dd54ca8739b309ec4fc024de578b",
         "type": "github"
       }
     }
