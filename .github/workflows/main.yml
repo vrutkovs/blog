@@ -14,7 +14,6 @@ jobs:
     steps:
       - uses: actions/checkout@v1
       - uses: DeterminateSystems/nix-installer-action@main
-      - uses: DeterminateSystems/flakehub-cache-action@main
       - run: |
           nix build .#containerImage
       - name: login to quay
