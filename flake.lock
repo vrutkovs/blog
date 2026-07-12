@@ -3,11 +3,11 @@
     "hugo-coder": {
       "flake": false,
       "locked": {
-        "lastModified": 1772713965,
-        "narHash": "sha256-9losarcVs6pqkdvnRfkg5Ef5G25ZT3ymX4bAQL7QT4o=",
+        "lastModified": 1781751807,
+        "narHash": "sha256-tRuJVSMyXeP5Y6UFmvuiQmAKAT3LWiQaa1ZMDr4nW2M=",
         "owner": "luizdepra",
         "repo": "hugo-coder",
-        "rev": "3d3bbd75d7bb46a4670af89442cf0b961440bd4e",
+        "rev": "58d956f41c056a12e15d5b6ee27c54fc98cd6e49",
         "type": "github"
       },
       "original": {
@@ -34,11 +34,11 @@
     },
     "nixpkgs": {
       "locked": {
-        "lastModified": 1781416004,
-        "narHash": "sha256-WdvC4P8owiBHgwyJ67LvrFol+0GcU1jSiMuPBzJcppM=",
+        "lastModified": 1783843428,
+        "narHash": "sha256-jXsFyjbx8DSLHAScSp3Bk8JXk7uOkzRYHHSoLmfG9Lc=",
         "owner": "NixOS",
         "repo": "nixpkgs",
-        "rev": "9f4b9e0d9783c47eee6ffb5cf0a11ce0fac9b232",
+        "rev": "879ee618cb72b872279821631adb109196a66dbe",
         "type": "github"
       },
       "original": {
