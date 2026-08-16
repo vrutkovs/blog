@@ -472,6 +472,19 @@ body.colorscheme-dark .colorscheme-toggle .moon-icon {
     color: var(--accent-color);
 }
 
+.quote-anchor {
+    float: left;
+    margin-left: -1.25rem;
+    padding-right: 0.35rem;
+    opacity: 0;
+    text-decoration: none;
+}
+
+blockquote:hover .quote-anchor,
+.quote-anchor:focus {
+    opacity: 1;
+}
+
 @media only screen and (max-width: 480px) {
     .book-card {
         max-width: none;

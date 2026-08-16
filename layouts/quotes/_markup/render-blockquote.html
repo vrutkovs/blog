@@ -1,0 +1,5 @@
+{{- $id := printf "quote-%s" (sha1 .Text | truncate 12 "") -}}
+<blockquote id="{{ $id }}">
+    <a class="quote-anchor" href="#{{ $id }}" aria-label="Link to this quote">#</a>
+    {{ .Text }}
+</blockquote>
