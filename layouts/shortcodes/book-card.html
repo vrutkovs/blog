@@ -1,0 +1,8 @@
+<a class="book-card" href="{{ .Get "url" }}" rel="noopener noreferrer">
+    <img src="{{ .Get "cover" }}" alt="{{ .Get "title" }} book cover" />
+    <span class="book-card-details">
+        <strong>{{ .Get "title" }}</strong>
+        <span>{{ .Get "author" }}</span>
+        <small>View on Open Library</small>
+    </span>
+</a>

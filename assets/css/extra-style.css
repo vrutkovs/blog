@@ -438,3 +438,42 @@ body.colorscheme-dark .colorscheme-toggle .moon-icon {
     grid-template-columns: 150px auto;
     grid-template-rows: auto;
 }
+
+.book-card {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    max-width: 32rem;
+    margin: 0 0 2rem;
+    padding: 1rem;
+    border: 1px solid var(--accent-color);
+    border-radius: var(--card-border-radius);
+    color: inherit;
+    text-decoration: none;
+}
+
+.book-card:hover {
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+}
+
+.book-card img {
+    width: 72px;
+    height: 108px;
+    object-fit: cover;
+}
+
+.book-card-details {
+    display: flex;
+    flex-direction: column;
+    gap: 0.3rem;
+}
+
+.book-card-details small {
+    color: var(--accent-color);
+}
+
+@media only screen and (max-width: 480px) {
+    .book-card {
+        max-width: none;
+    }
+}

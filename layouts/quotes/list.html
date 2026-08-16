@@ -1,0 +1,28 @@
+{{ define "title" }}
+  {{- if eq .Kind "taxonomy" -}}
+    {{- i18n .Data.Singular | title -}}
+    {{- print ": " -}}
+  {{- end -}}
+
+  {{- .Title }} -> {{ .Site.Title -}}
+{{ end }}
+{{ define "content" }}
+<section class="container list">
+  <h1 class="title">
+    {{- if eq .Kind "taxonomy" -}}
+      {{- i18n .Data.Singular | title -}}
+      {{- print ": " -}}
+    {{- end -}}
+    {{- .Title -}}
+  </h1>
+
+  {{ $pages := .Paginator.Pages }}
+  {{ range $pages }}
+    <li>
+      <a href="{{ .Params.ExternalLink | default .RelPermalink }}">{{ .Params.author }}'s {{ .Title }}</a>
+    </li>
+  {{ end }}
+
+  {{ partial "pagination.html" . }}
+</section>
+{{ end }}

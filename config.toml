@@ -69,6 +69,10 @@ name = "What I'm Reading"
 weight = 3
 url = "/reading-list/"
 
+[[menu.main]]
+name = "Book quotes"
+weight = 4
+url = "/quotes/"
 
 [outputs]
 home = ["html", "rss"]
